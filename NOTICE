@@ -1,0 +1,8 @@
+NOTICE
+
+This repository contains a Korean translation of the Google C++ Style Guide.
+Original work by Google: https://google.github.io/styleguide/cppguide.html
+
+Licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
