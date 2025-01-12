@@ -82,5 +82,4 @@ extra:
 # Navigation
 docs_dir: google cpp style guide
 nav:
-  - 홈: ../README.md
   - 배경: background.md
