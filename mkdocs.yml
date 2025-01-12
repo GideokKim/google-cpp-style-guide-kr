@@ -1,0 +1,43 @@
+
+site_name: "Google C++ Style Guide - 한글 번역"
+site_description: "Google C++ Style Guide의 한글 번역 프로젝트"
+site_author: Gideok Kim
+site_url: https://https://gideokkim.github.io/google-cpp-style-guide-kr/
+
+repo_name: GideokKim/google-cpp-style-guide-kr
+repo_url: https://github.com/GideokKim/google-cpp-style-guide-kr
+
+copyright: "© 2025 Google, 번역: Gideok Kim - Licensed under Apache License 2.0"
+
+
+markdown_extensions:
+  - codehilite:
+      guess_lang: false
+
+
+theme:
+  name: "material"
+  extra:
+    search:
+      language: "en"
+  font:
+    text: "Nanum Gothic"
+    code: "Nanum Gothic Coding"
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-sunny 
+        name: Switch to light mode
+      primary: "Indigo"
+      accent: "blue"
+    - scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  feature:
+    tabs: true
+
+docs_dir: google cpp style guide
+nav:
+  - Overview: ../README.md
+  - Background: background.md
