@@ -32,11 +32,18 @@ repository/
 | 저장소 생성 | ✅ | 2025-01-12 |
 | 기본 설정 진행 | ✅ | 2025-01-12 |
 | GitHub Pages 설정 | ✅ | 2025-01-12 |
-| 소개 섹션 | ❌ | - |
-| 코드 스타일 개요 | ❌ | - |
-| 네이밍 규칙 | ❌ | - |
-| 주석 가이드 | ❌ | - |
-| 기타 섹션 번역 | ❌ | - |
+| C++ Version | ❌ | - |
+| Header Files | ❌ | - |
+| Scoping | ❌ | - |
+| Classes | ❌ | - |
+| Functions | ❌ | - |
+| Google-Specific Magic | ❌ | - |
+| Other C++ Features | ❌ | - |
+| Inclusive Language | ❌ | - |
+| Naming | ❌ | - |
+| Comments | ❌ | - |
+| Formatting | ❌ | - |
+| Exceptions to the Rules | ❌ | - |
 
 > **Note:** 번역 상태는 계속 업데이트될 예정입니다.
 
