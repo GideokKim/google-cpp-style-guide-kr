@@ -83,3 +83,4 @@ extra:
 docs_dir: google cpp style guide
 nav:
   - 배경: background.md
+    - 스타일 가이드의 목표: goals_of_the_style_guide.md
