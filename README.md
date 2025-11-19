@@ -32,7 +32,7 @@ repository/
 | 저장소 생성 | ✅ | 2025-01-12 |
 | 기본 설정 진행 | ✅ | 2025-01-12 |
 | GitHub Pages 설정 | ✅ | 2025-01-12 |
-| C++ Version | ❌ | - |
+| C++ Version | ✅ | 2025-11-19 |
 | Header Files | ❌ | - |
 | Scoping | ❌ | - |
 | Classes | ❌ | - |
