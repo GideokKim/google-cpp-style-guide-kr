@@ -33,7 +33,7 @@ repository/
 | 기본 설정 진행 | ✅ | 2025-01-12 |
 | GitHub Pages 설정 | ✅ | 2025-01-12 |
 | C++ Version | ✅ | 2025-11-19 |
-| Header Files | ❌ | - |
+| Header Files | 🔥 | 진행중 |
 | Scoping | ❌ | - |
 | Classes | ❌ | - |
 | Functions | ❌ | - |
