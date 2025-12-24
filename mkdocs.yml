@@ -92,3 +92,4 @@ nav:
     - "#define 가드": define_guard.md
     - 사용하는 것만 포함하기: include_what_you_use.md
     - 전방 선언: forward_declarations.md
+    - 헤더 파일에서 함수 정의하기: defining_functions_in_header_files.md
