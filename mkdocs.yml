@@ -114,3 +114,10 @@ nav:
     - 연산자 오버로딩: operator_overloading.md
     - 접근 제어: access_control.md
     - 선언 순서: declaration_order.md
+  - 함수:
+    - 함수: functions.md
+    - 입력과 출력: inputs_and_outputs.md
+    - 짧은 함수 작성하기: write_short_functions.md
+    - 함수 오버로딩: function_overloading.md
+    - 기본 인자: default_arguments.md
+    - 후행 반환 타입 문법: trailing_return_type_syntax.md
