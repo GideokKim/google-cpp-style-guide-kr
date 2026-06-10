@@ -121,3 +121,6 @@ nav:
     - 함수 오버로딩: function_overloading.md
     - 기본 인자: default_arguments.md
     - 후행 반환 타입 문법: trailing_return_type_syntax.md
+  - Google 전용 매직:
+    - Google 전용 매직: google_specific_magic.md
+    - cpplint: cpplint.md
