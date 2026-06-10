@@ -49,6 +49,24 @@ repository/
 
 > **Note:** 번역 상태는 공식 원문 변경에 따라 계속 업데이트될 수 있습니다.
 
+## 🧪 번역 범위 검증
+
+이 저장소는 `scripts/upstream-topic-map.json`을 현재 번역 범위의 기준 목록으로 사용합니다. 이 파일은 공식 Google C++ Style Guide의 주요 제목과 하위 제목을 기록한 manifest입니다.
+
+새 원문 주제가 추가되거나 문서 구조가 바뀌면 다음을 함께 갱신하세요.
+
+1. `scripts/upstream-topic-map.json`
+2. 대응하는 번역 Markdown 파일
+3. `mkdocs.yml` navigation
+4. 각 페이지의 `이해하기 쉽게 설명하기` 섹션
+
+로컬 검증 명령:
+
+```bash
+python3 scripts/check_translation_coverage.py
+mkdocs build --strict
+```
+
 ## 📖 참고 자료
 
 - [Google C++ Style Guide (원문)](https://google.github.io/styleguide/cppguide.html)
