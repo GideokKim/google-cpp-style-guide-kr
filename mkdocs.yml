@@ -124,3 +124,34 @@ nav:
   - Google 전용 매직:
     - Google 전용 매직: google_specific_magic.md
     - cpplint: cpplint.md
+  - 기타 C++ 기능:
+    - 기타 C++ 기능: other_cpp_features.md
+    - 소유권과 스마트 포인터: ownership_and_smart_pointers.md
+    - Rvalue 참조: rvalue_references.md
+    - 프렌드: friends.md
+    - 예외: exceptions.md
+    - noexcept: noexcept.md
+    - 캐스팅: casting.md
+    - 스트림: streams.md
+    - 전위 증가와 전위 감소: preincrement_and_predecrement.md
+    - const 사용: use_of_const.md
+    - constexpr, constinit, consteval 사용: use_of_constexpr_constinit_and_consteval.md
+    - 정수 타입: integer_types.md
+    - 부동소수점 타입: floating_point_types.md
+    - 아키텍처 이식성: architecture_portability.md
+    - 전처리기 매크로: preprocessor_macros.md
+    - 0과 nullptr/NULL: zero_and_nullptr_null.md
+    - sizeof: sizeof.md
+    - 타입 추론(auto 포함): type_deduction.md
+    - 클래스 템플릿 인자 추론: class_template_argument_deduction.md
+    - 지정 초기화: designated_initializers.md
+    - 람다 표현식: lambda_expressions.md
+    - 템플릿 메타프로그래밍: template_metaprogramming.md
+    - Concepts와 제약: concepts_and_constraints.md
+    - C++20 모듈: cpp20_modules.md
+    - 코루틴: coroutines.md
+    - 금지된 표준 라이브러리 기능: disallowed_standard_library_features.md
+    - 서드파티 라이브러리: third_party_libraries.md
+    - 비표준 확장: nonstandard_extensions.md
+    - 별칭: aliases.md
+    - switch 문: switch_statements.md
