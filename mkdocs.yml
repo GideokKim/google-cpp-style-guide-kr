@@ -132,6 +132,7 @@ nav:
     - 프렌드: friends.md
     - 예외: exceptions.md
     - noexcept: noexcept.md
+    - 런타임 타입 정보(RTTI): run_time_type_information_rtti.md
     - 캐스팅: casting.md
     - 스트림: streams.md
     - 전위 증가와 전위 감소: preincrement_and_predecrement.md
