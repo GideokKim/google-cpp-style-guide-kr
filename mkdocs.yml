@@ -203,3 +203,7 @@ nav:
     - 네임스페이스 형식: namespace_formatting.md
     - 가로 공백: horizontal_whitespace.md
     - 세로 공백: vertical_whitespace.md
+  - 규칙의 예외:
+    - 규칙의 예외: exceptions_to_the_rules.md
+    - 기존 비준수 코드: existing_nonconformant_code.md
+    - Windows 코드: windows_code.md
