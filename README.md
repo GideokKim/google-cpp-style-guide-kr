@@ -16,13 +16,13 @@ Google C++ Style Guide는 C++ 코드 작성 시 권장되는 스타일과 모범
 
 ## 📂 디렉토리 구조
 
-```
+```text
 repository/
 ├── LICENSE                         # 라이선스 파일
 ├── NOTICE                          # 원작 정보 고지
 ├── README.md                       # 프로젝트 소개
-├── google cpp style guide/         # 번역 중인 원문 및 번역본 파일
-└── docs/                           # 추가 문서 (기여 가이드, 참고 자료 등)
+├── mkdocs.yml                      # MkDocs 사이트 설정
+└── google cpp style guide/         # MkDocs 문서 루트 및 번역본 파일
 ```
 
 ---
@@ -35,19 +35,19 @@ repository/
 | 기본 설정 진행          | ✅   | 2025-01-12 |
 | GitHub Pages 설정       | ✅   | 2025-01-12 |
 | C++ Version             | ✅   | 2025-11-19 |
-| Header Files            | 🔥   | 2025-12-31 |
-| Scoping                 | 🔥   | 진행중     |
-| Classes                 | ❌   | -          |
-| Functions               | ❌   | -          |
-| Google-Specific Magic   | ❌   | -          |
-| Other C++ Features      | ❌   | -          |
-| Inclusive Language      | ❌   | -          |
-| Naming                  | ❌   | -          |
-| Comments                | ❌   | -          |
-| Formatting              | ❌   | -          |
-| Exceptions to the Rules | ❌   | -          |
+| Header Files            | ✅   | 2025-12-31 |
+| Scoping                 | ✅   | 2026-06-10 |
+| Classes                 | ✅   | 2026-06-10 |
+| Functions               | ✅   | 2026-06-10 |
+| Google-Specific Magic   | ✅   | 2026-06-10 |
+| Other C++ Features      | ✅   | 2026-06-10 |
+| Inclusive Language      | ✅   | 2026-06-10 |
+| Naming                  | ✅   | 2026-06-10 |
+| Comments                | ✅   | 2026-06-10 |
+| Formatting              | ✅   | 2026-06-10 |
+| Exceptions to the Rules | ✅   | 2026-06-10 |
 
-> **Note:** 번역 상태는 계속 업데이트될 예정입니다.
+> **Note:** 번역 상태는 공식 원문 변경에 따라 계속 업데이트될 수 있습니다.
 
 ## 📖 참고 자료
 
