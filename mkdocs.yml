@@ -157,3 +157,18 @@ nav:
     - switch 문: switch_statements.md
   - 포용적인 언어:
     - 포용적인 언어: inclusive_language.md
+  - 이름 짓기:
+    - 이름 짓기: naming.md
+    - 이름 선택하기: choosing_names.md
+    - 파일 이름: file_names.md
+    - 타입 이름: type_names.md
+    - Concept 이름: concept_names.md
+    - 변수 이름: variable_names.md
+    - 상수 이름: constant_names.md
+    - 함수 이름: function_names.md
+    - 네임스페이스 이름: namespace_names.md
+    - 열거자 이름: enumerator_names.md
+    - 템플릿 매개변수 이름: template_parameter_names.md
+    - 매크로 이름: macro_names.md
+    - 별칭 이름: naming_aliases.md
+    - 이름 규칙의 예외: exceptions_to_naming_rules.md
