@@ -9,7 +9,7 @@ Google C++ Style Guide는 C++ 코드 작성 시 권장되는 스타일과 모범
 ## 📌 프로젝트 개요
 
 - **원작**: [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)
-- **라이선스**: [Apache License 2.0](../LICENSE)
+- **라이선스**: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 - **번역 목적**: 한국어 사용자들이 Google의 C++ 스타일 가이드를 보다 쉽게 접근할 수 있도록 지원.
 
 ---
