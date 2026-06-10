@@ -1,25 +1,89 @@
 # 가로 공백 (Horizontal Whitespace)
 
-`가로 공백`은 코드의 구조를 시각적으로 일관되게 드러내는 규칙입니다. 포맷 논쟁을 줄이고 리뷰가 의미 있는 내용에 집중하도록 돕습니다.
+## 원문 규칙 번역
 
-다음 원칙을 따르세요:
+가로 공백 사용은 위치에 따라 다릅니다. 줄 끝에 공백을 두지 마십시오.
 
-- 형식은 논쟁거리가 아니라 자동화와 가독성을 위한 공통 약속입니다.
-- 일관된 줄바꿈, 들여쓰기, 공백은 코드의 구조를 눈에 보이게 합니다.
-- 기존 파일의 스타일과 도구의 기대를 우선하세요.
+```cpp
+int i = 0;  // Two spaces before end-of-line comments.
 
-이 규칙은 새 코드를 작성할 때 우선 적용하고, 기존 코드는 관련 부분을 수정하는 자연스러운 시점에 함께 정리하는 것이 좋습니다. 공개 API나 넓은 범위에 영향을 주는 선택일수록 더 보수적으로 판단하세요.
+void f(bool b) {  // Open braces should always have a space before them.
+  ...
+int i = 0;  // Semicolons usually have no space before them.
+// Spaces inside braces for braced-init-list are optional.  If you use them,
+// put them on both sides!
+int x[] = { 0 };
+int x[] = {0};
+
+// Spaces around the colon in inheritance and initializer lists.
+class Foo : public Bar {
+ public:
+  // For inline function implementations, put spaces between the braces
+  // and the implementation itself.
+  Foo(int b) : Bar(), baz_(b) {}  // No spaces inside empty braces.
+  void Reset() { baz_ = 0; }  // Spaces separating braces from implementation.
+  ...
+```
+
+후행 공백을 추가하면 기존 후행 공백을 제거할 수 있는 것처럼 다른 사람이 병합할 때 동일한 파일을 편집하는 데 추가 작업이 발생할 수 있습니다. 따라서 후행 공백을 도입하지 마세요. 해당 줄을 이미 변경하고 있는 경우 이를 제거하거나 별도의 정리 작업으로 수행하십시오(가급적이면 파일에 대해 작업 중인 사람이 없을 때).
+
+```cpp
+if (b) {          // Space after the keyword in conditions and loops.
+} else {          // Spaces around else.
+}
+while (test) {}   // There is usually no space inside parentheses.
+switch (i) {
+for (int i = 0; i < 5; ++i) {
+// Loops and conditions may have spaces inside parentheses, but this
+// is rare.  Be consistent.
+switch ( i ) {
+if ( test ) {
+for ( int i = 0; i < 5; ++i ) {
+// For loops always have a space after the semicolon.  They may have a space
+// before the semicolon, but this is rare.
+for ( ; i < 5 ; ++i) {
+  ...
+
+// Range-based for loops always have a space before and after the colon.
+for (auto x : counts) {
+  ...
+}
+switch (i) {
+  case 1:         // No space before colon in a switch case.
+    ...
+  case 2: break;  // Use a space after a colon if there's code after it.
+```
+
+```cpp
+// Assignment operators always have spaces around them.
+x = 0;
+
+// Other binary operators usually have spaces around them, but it's
+// OK to remove spaces around factors.  Parentheses should have no
+// internal padding.
+v = w * x + y / z;
+v = w*x + y/z;
+v = w * (x + z);
+
+// No spaces separating unary operators and their arguments.
+x = -5;
+++x;
+if (x && !y)
+  ...
+```
+
+```cpp
+// No spaces inside the angle brackets (< and >), before
+// <, or between >( in a cast
+std::vector<std::string> x;
+y = static_cast<char*>(x);
+
+// No spaces between type and pointer.
+std::vector<char*> x;
+```
 
 ---
 
 ## 이해하기 쉽게 설명하기
 
-쉽게 말해, `가로 공백` 규칙은 독자가 코드를 읽으면서 추측해야 하는 부분을 줄이기 위한 안전장치입니다. 작성자는 배경을 알고 있지만, 리뷰어와 미래의 유지보수자는 이름·선언·형식에 남은 단서만 보고 판단합니다.
-
-점검할 때는 다음 질문을 사용하세요.
-
-- 형식만 보고 코드의 구조가 드러나는가?
-- 자동 포맷 도구와 충돌하지 않는가?
-- 기존 파일의 스타일과 일관되는가?
-
-세 질문 중 하나라도 자신 있게 답하기 어렵다면 더 명시적인 표현, 더 작은 범위, 또는 더 단순한 구조를 선택하는 편이 안전합니다.
+가로 공백 규칙을 적용할 때는 원문 규칙을 문자 그대로 외우기보다, 왜 이 선택이 독자에게 더 명확한지 살펴보면 쉽습니다. 코드 리뷰에서는 이 기능이 호출 지점에서 의도를 숨기지 않는지, 더 단순한 구조로 같은 목적을 달성할 수 없는지, 기존 코드와 섞였을 때 유지보수 비용이 커지지 않는지를 확인하세요.

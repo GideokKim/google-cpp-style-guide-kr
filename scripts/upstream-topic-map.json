@@ -1,0 +1,793 @@
+[
+  {
+    "level": 2,
+    "id": "Background",
+    "title": "Background",
+    "section": "Background",
+    "file": "background.md"
+  },
+  {
+    "level": 3,
+    "id": "Goals",
+    "title": "Goals of the Style Guide",
+    "section": "Background",
+    "file": "goals_of_the_style_guide.md"
+  },
+  {
+    "level": 2,
+    "id": "C++_Version",
+    "title": "C++ Version",
+    "section": "C++ Version",
+    "file": "cpp_version.md"
+  },
+  {
+    "level": 2,
+    "id": "Header_Files",
+    "title": "Header Files",
+    "section": "Header Files",
+    "file": "header_files.md"
+  },
+  {
+    "level": 3,
+    "id": "Self_contained_Headers",
+    "title": "Self-contained Headers",
+    "section": "Header Files",
+    "file": "self_contained_headers.md"
+  },
+  {
+    "level": 3,
+    "id": "The__define_Guard",
+    "title": "The #define Guard",
+    "section": "Header Files",
+    "file": "define_guard.md"
+  },
+  {
+    "level": 3,
+    "id": "Include_What_You_Use",
+    "title": "Include What You Use",
+    "section": "Header Files",
+    "file": "include_what_you_use.md"
+  },
+  {
+    "level": 3,
+    "id": "Forward_Declarations",
+    "title": "Forward Declarations",
+    "section": "Header Files",
+    "file": "forward_declarations.md"
+  },
+  {
+    "level": 3,
+    "id": "Defining_Functions_in_Header_Files",
+    "title": "Defining Functions in Header Files",
+    "section": "Header Files",
+    "file": "defining_functions_in_header_files.md"
+  },
+  {
+    "level": 3,
+    "id": "Names_and_Order_of_Includes",
+    "title": "Names and Order of Includes",
+    "section": "Header Files",
+    "file": "names_and_order_of_includes.md"
+  },
+  {
+    "level": 2,
+    "id": "Scoping",
+    "title": "Scoping",
+    "section": "Scoping",
+    "file": "scoping.md"
+  },
+  {
+    "level": 3,
+    "id": "Namespaces",
+    "title": "Namespaces",
+    "section": "Scoping",
+    "file": "namespaces.md"
+  },
+  {
+    "level": 3,
+    "id": "Internal_Linkage",
+    "title": "Internal Linkage",
+    "section": "Scoping",
+    "file": "internal_linkage.md"
+  },
+  {
+    "level": 3,
+    "id": "Nonmember,_Static_Member,_and_Global_Functions",
+    "title": "Nonmember, Static Member, and Global Functions",
+    "section": "Scoping",
+    "file": "nonmember_static_member_and_global_functions.md"
+  },
+  {
+    "level": 3,
+    "id": "Local_Variables",
+    "title": "Local Variables",
+    "section": "Scoping",
+    "file": "local_variables.md"
+  },
+  {
+    "level": 3,
+    "id": "Static_and_Global_Variables",
+    "title": "Static and Global Variables",
+    "section": "Scoping",
+    "file": "static_and_global_variables.md"
+  },
+  {
+    "level": 3,
+    "id": "thread_local",
+    "title": "thread_local Variables",
+    "section": "Scoping",
+    "file": "thread_local_variables.md"
+  },
+  {
+    "level": 2,
+    "id": "Classes",
+    "title": "Classes",
+    "section": "Classes",
+    "file": "classes.md"
+  },
+  {
+    "level": 3,
+    "id": "Doing_Work_in_Constructors",
+    "title": "Doing Work in Constructors",
+    "section": "Classes",
+    "file": "doing_work_in_constructors.md"
+  },
+  {
+    "level": 3,
+    "id": "Implicit_Conversions",
+    "title": "Implicit Conversions",
+    "section": "Classes",
+    "file": "implicit_conversions.md"
+  },
+  {
+    "level": 3,
+    "id": "Copyable_Movable_Types",
+    "title": "Copyable and Movable Types",
+    "section": "Classes",
+    "file": "copyable_and_movable_types.md"
+  },
+  {
+    "level": 3,
+    "id": "Structs_vs._Classes",
+    "title": "Structs vs. Classes",
+    "section": "Classes",
+    "file": "structs_vs_classes.md"
+  },
+  {
+    "level": 3,
+    "id": "Structs_vs._Tuples",
+    "title": "Structs vs. Pairs and Tuples",
+    "section": "Classes",
+    "file": "structs_vs_pairs_and_tuples.md"
+  },
+  {
+    "level": 3,
+    "id": "Inheritance",
+    "title": "Inheritance",
+    "section": "Classes",
+    "file": "inheritance.md"
+  },
+  {
+    "level": 3,
+    "id": "Operator_Overloading",
+    "title": "Operator Overloading",
+    "section": "Classes",
+    "file": "operator_overloading.md"
+  },
+  {
+    "level": 3,
+    "id": "Access_Control",
+    "title": "Access Control",
+    "section": "Classes",
+    "file": "access_control.md"
+  },
+  {
+    "level": 3,
+    "id": "Declaration_Order",
+    "title": "Declaration Order",
+    "section": "Classes",
+    "file": "declaration_order.md"
+  },
+  {
+    "level": 2,
+    "id": "Functions",
+    "title": "Functions",
+    "section": "Functions",
+    "file": "functions.md"
+  },
+  {
+    "level": 3,
+    "id": "Inputs_and_Outputs",
+    "title": "Inputs and Outputs",
+    "section": "Functions",
+    "file": "inputs_and_outputs.md"
+  },
+  {
+    "level": 3,
+    "id": "Write_Short_Functions",
+    "title": "Write Short Functions",
+    "section": "Functions",
+    "file": "write_short_functions.md"
+  },
+  {
+    "level": 3,
+    "id": "Function_Overloading",
+    "title": "Function Overloading",
+    "section": "Functions",
+    "file": "function_overloading.md"
+  },
+  {
+    "level": 3,
+    "id": "Default_Arguments",
+    "title": "Default Arguments",
+    "section": "Functions",
+    "file": "default_arguments.md"
+  },
+  {
+    "level": 3,
+    "id": "trailing_return",
+    "title": "Trailing Return Type Syntax",
+    "section": "Functions",
+    "file": "trailing_return_type_syntax.md"
+  },
+  {
+    "level": 2,
+    "id": "Google-Specific_Magic",
+    "title": "Google-Specific Magic",
+    "section": "Google-Specific Magic",
+    "file": "google_specific_magic.md"
+  },
+  {
+    "level": 3,
+    "id": "cpplint",
+    "title": "cpplint",
+    "section": "Google-Specific Magic",
+    "file": "cpplint.md"
+  },
+  {
+    "level": 2,
+    "id": "Other_C++_Features",
+    "title": "Other C++ Features",
+    "section": "Other C++ Features",
+    "file": "other_cpp_features.md"
+  },
+  {
+    "level": 3,
+    "id": "Ownership_and_Smart_Pointers",
+    "title": "Ownership and Smart Pointers",
+    "section": "Other C++ Features",
+    "file": "ownership_and_smart_pointers.md"
+  },
+  {
+    "level": 3,
+    "id": "Rvalue_references",
+    "title": "Rvalue References",
+    "section": "Other C++ Features",
+    "file": "rvalue_references.md"
+  },
+  {
+    "level": 3,
+    "id": "Friends",
+    "title": "Friends",
+    "section": "Other C++ Features",
+    "file": "friends.md"
+  },
+  {
+    "level": 3,
+    "id": "Exceptions",
+    "title": "Exceptions",
+    "section": "Other C++ Features",
+    "file": "exceptions.md"
+  },
+  {
+    "level": 3,
+    "id": "noexcept",
+    "title": "noexcept",
+    "section": "Other C++ Features",
+    "file": "noexcept.md"
+  },
+  {
+    "level": 3,
+    "id": "Run-Time_Type_Information__RTTI_",
+    "title": "Run-Time Type Information (RTTI)",
+    "section": "Other C++ Features",
+    "file": "run_time_type_information_rtti.md"
+  },
+  {
+    "level": 3,
+    "id": "Casting",
+    "title": "Casting",
+    "section": "Other C++ Features",
+    "file": "casting.md"
+  },
+  {
+    "level": 3,
+    "id": "Streams",
+    "title": "Streams",
+    "section": "Other C++ Features",
+    "file": "streams.md"
+  },
+  {
+    "level": 3,
+    "id": "Preincrement_and_Predecrement",
+    "title": "Preincrement and Predecrement",
+    "section": "Other C++ Features",
+    "file": "preincrement_and_predecrement.md"
+  },
+  {
+    "level": 3,
+    "id": "Use_of_const",
+    "title": "Use of const",
+    "section": "Other C++ Features",
+    "file": "use_of_const.md"
+  },
+  {
+    "level": 3,
+    "id": "Use_of_constexpr",
+    "title": "Use of constexpr, constinit, and consteval",
+    "section": "Other C++ Features",
+    "file": "use_of_constexpr_constinit_and_consteval.md"
+  },
+  {
+    "level": 3,
+    "id": "Integer_Types",
+    "title": "Integer Types",
+    "section": "Other C++ Features",
+    "file": "integer_types.md"
+  },
+  {
+    "level": 3,
+    "id": "Floating-Point_Types",
+    "title": "Floating-Point Types",
+    "section": "Other C++ Features",
+    "file": "floating_point_types.md"
+  },
+  {
+    "level": 3,
+    "id": "Architecture_Portability",
+    "title": "Architecture Portability",
+    "section": "Other C++ Features",
+    "file": "architecture_portability.md"
+  },
+  {
+    "level": 3,
+    "id": "Preprocessor_Macros",
+    "title": "Preprocessor Macros",
+    "section": "Other C++ Features",
+    "file": "preprocessor_macros.md"
+  },
+  {
+    "level": 3,
+    "id": "0_and_nullptr/NULL",
+    "title": "0 and nullptr/NULL",
+    "section": "Other C++ Features",
+    "file": "zero_and_nullptr_null.md"
+  },
+  {
+    "level": 3,
+    "id": "sizeof",
+    "title": "sizeof",
+    "section": "Other C++ Features",
+    "file": "sizeof.md"
+  },
+  {
+    "level": 3,
+    "id": "Type_deduction",
+    "title": "Type Deduction (including auto)",
+    "section": "Other C++ Features",
+    "file": "type_deduction.md"
+  },
+  {
+    "level": 3,
+    "id": "CTAD",
+    "title": "Class Template Argument Deduction",
+    "section": "Other C++ Features",
+    "file": "class_template_argument_deduction.md"
+  },
+  {
+    "level": 3,
+    "id": "Designated_initializers",
+    "title": "Designated Initializers",
+    "section": "Other C++ Features",
+    "file": "designated_initializers.md"
+  },
+  {
+    "level": 3,
+    "id": "Lambda_expressions",
+    "title": "Lambda Expressions",
+    "section": "Other C++ Features",
+    "file": "lambda_expressions.md"
+  },
+  {
+    "level": 3,
+    "id": "Template_metaprogramming",
+    "title": "Template Metaprogramming",
+    "section": "Other C++ Features",
+    "file": "template_metaprogramming.md"
+  },
+  {
+    "level": 3,
+    "id": "Concepts",
+    "title": "Concepts and Constraints",
+    "section": "Other C++ Features",
+    "file": "concepts_and_constraints.md"
+  },
+  {
+    "level": 3,
+    "id": "modules",
+    "title": "C++20 modules",
+    "section": "Other C++ Features",
+    "file": "cpp20_modules.md"
+  },
+  {
+    "level": 3,
+    "id": "coroutines",
+    "title": "Coroutines",
+    "section": "Other C++ Features",
+    "file": "coroutines.md"
+  },
+  {
+    "level": 3,
+    "id": "Disallowed_Stdlib",
+    "title": "Disallowed standard library features",
+    "section": "Other C++ Features",
+    "file": "disallowed_standard_library_features.md"
+  },
+  {
+    "level": 3,
+    "id": "Third_party_Libraries",
+    "title": "Third-party Libraries",
+    "section": "Other C++ Features",
+    "file": "third_party_libraries.md"
+  },
+  {
+    "level": 3,
+    "id": "Nonstandard_Extensions",
+    "title": "Nonstandard Extensions",
+    "section": "Other C++ Features",
+    "file": "nonstandard_extensions.md"
+  },
+  {
+    "level": 3,
+    "id": "Aliases",
+    "title": "Aliases",
+    "section": "Other C++ Features",
+    "file": "aliases.md"
+  },
+  {
+    "level": 3,
+    "id": "Switch_Statements",
+    "title": "Switch Statements",
+    "section": "Other C++ Features",
+    "file": "switch_statements.md"
+  },
+  {
+    "level": 2,
+    "id": "Inclusive_Language",
+    "title": "Inclusive Language",
+    "section": "Inclusive Language",
+    "file": "inclusive_language.md"
+  },
+  {
+    "level": 2,
+    "id": "Naming",
+    "title": "Naming",
+    "section": "Naming",
+    "file": "naming.md"
+  },
+  {
+    "level": 3,
+    "id": "General_Naming_Rules",
+    "title": "Choosing Names",
+    "section": "Naming",
+    "file": "choosing_names.md"
+  },
+  {
+    "level": 3,
+    "id": "File_Names",
+    "title": "File Names",
+    "section": "Naming",
+    "file": "file_names.md"
+  },
+  {
+    "level": 3,
+    "id": "Type_Names",
+    "title": "Type Names",
+    "section": "Naming",
+    "file": "type_names.md"
+  },
+  {
+    "level": 3,
+    "id": "Concept_Names",
+    "title": "Concept Names",
+    "section": "Naming",
+    "file": "concept_names.md"
+  },
+  {
+    "level": 3,
+    "id": "Variable_Names",
+    "title": "Variable Names",
+    "section": "Naming",
+    "file": "variable_names.md"
+  },
+  {
+    "level": 3,
+    "id": "Constant_Names",
+    "title": "Constant Names",
+    "section": "Naming",
+    "file": "constant_names.md"
+  },
+  {
+    "level": 3,
+    "id": "Function_Names",
+    "title": "Function Names",
+    "section": "Naming",
+    "file": "function_names.md"
+  },
+  {
+    "level": 3,
+    "id": "Namespace_Names",
+    "title": "Namespace Names",
+    "section": "Naming",
+    "file": "namespace_names.md"
+  },
+  {
+    "level": 3,
+    "id": "Enumerator_Names",
+    "title": "Enumerator Names",
+    "section": "Naming",
+    "file": "enumerator_names.md"
+  },
+  {
+    "level": 3,
+    "id": "Template_Parameter_Names",
+    "title": "Template Parameter Names",
+    "section": "Naming",
+    "file": "template_parameter_names.md"
+  },
+  {
+    "level": 3,
+    "id": "Macro_Names",
+    "title": "Macro Names",
+    "section": "Naming",
+    "file": "macro_names.md"
+  },
+  {
+    "level": 3,
+    "id": "Naming_Aliases",
+    "title": "Aliases",
+    "section": "Naming",
+    "file": "naming_aliases.md"
+  },
+  {
+    "level": 3,
+    "id": "Exceptions_to_Naming_Rules",
+    "title": "Exceptions to Naming Rules",
+    "section": "Naming",
+    "file": "exceptions_to_naming_rules.md"
+  },
+  {
+    "level": 2,
+    "id": "Comments",
+    "title": "Comments",
+    "section": "Comments",
+    "file": "comments.md"
+  },
+  {
+    "level": 3,
+    "id": "Comment_Style",
+    "title": "Comment Style",
+    "section": "Comments",
+    "file": "comment_style.md"
+  },
+  {
+    "level": 3,
+    "id": "File_Comments",
+    "title": "File Comments",
+    "section": "Comments",
+    "file": "file_comments.md"
+  },
+  {
+    "level": 3,
+    "id": "Class_Comments",
+    "title": "Struct and Class Comments",
+    "section": "Comments",
+    "file": "struct_and_class_comments.md"
+  },
+  {
+    "level": 3,
+    "id": "Function_Comments",
+    "title": "Function Comments",
+    "section": "Comments",
+    "file": "function_comments.md"
+  },
+  {
+    "level": 3,
+    "id": "Variable_Comments",
+    "title": "Variable Comments",
+    "section": "Comments",
+    "file": "variable_comments.md"
+  },
+  {
+    "level": 3,
+    "id": "Implementation_Comments",
+    "title": "Implementation Comments",
+    "section": "Comments",
+    "file": "implementation_comments.md"
+  },
+  {
+    "level": 3,
+    "id": "Punctuation_Spelling_and_Grammar",
+    "title": "Punctuation, Spelling, and Grammar",
+    "section": "Comments",
+    "file": "punctuation_spelling_and_grammar.md"
+  },
+  {
+    "level": 3,
+    "id": "TODO_Comments",
+    "title": "TODO Comments",
+    "section": "Comments",
+    "file": "todo_comments.md"
+  },
+  {
+    "level": 2,
+    "id": "Formatting",
+    "title": "Formatting",
+    "section": "Formatting",
+    "file": "formatting.md"
+  },
+  {
+    "level": 3,
+    "id": "Line_Length",
+    "title": "Line Length",
+    "section": "Formatting",
+    "file": "line_length.md"
+  },
+  {
+    "level": 3,
+    "id": "Non-ASCII_Characters",
+    "title": "Non-ASCII Characters",
+    "section": "Formatting",
+    "file": "non_ascii_characters.md"
+  },
+  {
+    "level": 3,
+    "id": "Spaces_vs._Tabs",
+    "title": "Spaces vs. Tabs",
+    "section": "Formatting",
+    "file": "spaces_vs_tabs.md"
+  },
+  {
+    "level": 3,
+    "id": "Function_Declarations_and_Definitions",
+    "title": "Function Declarations and Definitions",
+    "section": "Formatting",
+    "file": "function_declarations_and_definitions.md"
+  },
+  {
+    "level": 3,
+    "id": "Formatting_Lambda_Expressions",
+    "title": "Lambda Expressions",
+    "section": "Formatting",
+    "file": "formatting_lambda_expressions.md"
+  },
+  {
+    "level": 3,
+    "id": "Floating_Literals",
+    "title": "Floating-point Literals",
+    "section": "Formatting",
+    "file": "floating_point_literals.md"
+  },
+  {
+    "level": 3,
+    "id": "Function_Calls",
+    "title": "Function Calls",
+    "section": "Formatting",
+    "file": "function_calls.md"
+  },
+  {
+    "level": 3,
+    "id": "Braced_Initializer_List_Format",
+    "title": "Braced Initializer List Format",
+    "section": "Formatting",
+    "file": "braced_initializer_list_format.md"
+  },
+  {
+    "level": 3,
+    "id": "Formatting_Looping_Branching",
+    "title": "Looping and branching statements",
+    "section": "Formatting",
+    "file": "looping_and_branching_statements.md"
+  },
+  {
+    "level": 3,
+    "id": "Pointer_and_Reference_Expressions",
+    "title": "Pointer and Reference Expressions and Types",
+    "section": "Formatting",
+    "file": "pointer_and_reference_expressions_and_types.md"
+  },
+  {
+    "level": 3,
+    "id": "Boolean_Expressions",
+    "title": "Boolean Expressions",
+    "section": "Formatting",
+    "file": "boolean_expressions.md"
+  },
+  {
+    "level": 3,
+    "id": "Return_Values",
+    "title": "Return Values",
+    "section": "Formatting",
+    "file": "return_values.md"
+  },
+  {
+    "level": 3,
+    "id": "Variable_and_Array_Initialization",
+    "title": "Variable and Array Initialization",
+    "section": "Formatting",
+    "file": "variable_and_array_initialization.md"
+  },
+  {
+    "level": 3,
+    "id": "Preprocessor_Directives",
+    "title": "Preprocessor Directives",
+    "section": "Formatting",
+    "file": "preprocessor_directives.md"
+  },
+  {
+    "level": 3,
+    "id": "Class_Format",
+    "title": "Class Format",
+    "section": "Formatting",
+    "file": "class_format.md"
+  },
+  {
+    "level": 3,
+    "id": "Constructor_Initializer_Lists",
+    "title": "Constructor Initializer Lists",
+    "section": "Formatting",
+    "file": "constructor_initializer_lists.md"
+  },
+  {
+    "level": 3,
+    "id": "Namespace_Formatting",
+    "title": "Namespace Formatting",
+    "section": "Formatting",
+    "file": "namespace_formatting.md"
+  },
+  {
+    "level": 3,
+    "id": "Horizontal_Whitespace",
+    "title": "Horizontal Whitespace",
+    "section": "Formatting",
+    "file": "horizontal_whitespace.md"
+  },
+  {
+    "level": 3,
+    "id": "Vertical_Whitespace",
+    "title": "Vertical Whitespace",
+    "section": "Formatting",
+    "file": "vertical_whitespace.md"
+  },
+  {
+    "level": 2,
+    "id": "Exceptions_to_the_Rules",
+    "title": "Exceptions to the Rules",
+    "section": "Exceptions to the Rules",
+    "file": "exceptions_to_the_rules.md"
+  },
+  {
+    "level": 3,
+    "id": "Existing_Non-conformant_Code",
+    "title": "Existing Non-conformant Code",
+    "section": "Exceptions to the Rules",
+    "file": "existing_nonconformant_code.md"
+  },
+  {
+    "level": 3,
+    "id": "Windows_Code",
+    "title": "Windows Code",
+    "section": "Exceptions to the Rules",
+    "file": "windows_code.md"
+  }
+]

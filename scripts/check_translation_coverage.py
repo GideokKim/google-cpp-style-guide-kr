@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MAP = ROOT / ".omx/ultragoal/upstream-topic-map.json"
+MAP = ROOT / "scripts/upstream-topic-map.json"
 DOCS = ROOT / "google cpp style guide"
 NAV = ROOT / "mkdocs.yml"
 

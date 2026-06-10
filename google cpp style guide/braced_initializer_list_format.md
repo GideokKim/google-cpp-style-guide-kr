@@ -1,25 +1,41 @@
 # 중괄호 초기화 목록 형식 (Braced Initializer List Format)
 
-`중괄호 초기화 목록 형식`은 코드의 구조를 시각적으로 일관되게 드러내는 규칙입니다. 포맷 논쟁을 줄이고 리뷰가 의미 있는 내용에 집중하도록 돕습니다.
+## 원문 규칙 번역
 
-다음 원칙을 따르세요:
+그 자리에서 함수 호출의 형식을 지정하는 것과 똑같이 중괄호 초기화 목록의 형식을 지정합니다.
 
-- 형식은 논쟁거리가 아니라 자동화와 가독성을 위한 공통 약속입니다.
-- 일관된 줄바꿈, 들여쓰기, 공백은 코드의 구조를 눈에 보이게 합니다.
-- 기존 파일의 스타일과 도구의 기대를 우선하세요.
+중괄호로 묶인 목록이 이름(예: 유형 또는 변수 이름) 뒤에 오는 경우, {}가 해당 이름을 가진 함수 호출의 괄호인 것처럼 형식을 지정합니다. 이름이 없으면 길이가 0인 이름을 가정합니다.
 
-이 규칙은 새 코드를 작성할 때 우선 적용하고, 기존 코드는 관련 부분을 수정하는 자연스러운 시점에 함께 정리하는 것이 좋습니다. 공개 API나 넓은 범위에 영향을 주는 선택일수록 더 보수적으로 판단하세요.
+```cpp
+// Examples of braced init list on a single line.
+return {foo, bar};
+functioncall({foo, bar});
+std::pair<int, int> p{foo, bar};
+
+// When you have to wrap.
+SomeFunction(
+    {"assume a zero-length name before {"},
+    some_other_function_parameter);
+SomeType variable{
+    some, other, values,
+    {"assume a zero-length name before {"},
+    SomeOtherType{
+        "Very long string requiring the surrounding breaks.",
+        some, other, values},
+    SomeOtherType{"Slightly shorter string",
+                  some, other, values}};
+SomeType variable{
+    "This is too long to fit all in one line"};
+MyType m = {  // Here, you could also break before {.
+    superlongvariablename1,
+    superlongvariablename2,
+    {short, interior, list},
+    {interiorwrappinglist,
+     interiorwrappinglist2}};
+```
 
 ---
 
 ## 이해하기 쉽게 설명하기
 
-쉽게 말해, `중괄호 초기화 목록 형식` 규칙은 독자가 코드를 읽으면서 추측해야 하는 부분을 줄이기 위한 안전장치입니다. 작성자는 배경을 알고 있지만, 리뷰어와 미래의 유지보수자는 이름·선언·형식에 남은 단서만 보고 판단합니다.
-
-점검할 때는 다음 질문을 사용하세요.
-
-- 형식만 보고 코드의 구조가 드러나는가?
-- 자동 포맷 도구와 충돌하지 않는가?
-- 기존 파일의 스타일과 일관되는가?
-
-세 질문 중 하나라도 자신 있게 답하기 어렵다면 더 명시적인 표현, 더 작은 범위, 또는 더 단순한 구조를 선택하는 편이 안전합니다.
+중괄호 초기화 목록 형식 규칙을 적용할 때는 원문 규칙을 문자 그대로 외우기보다, 왜 이 선택이 독자에게 더 명확한지 살펴보면 쉽습니다. 코드 리뷰에서는 이 기능이 호출 지점에서 의도를 숨기지 않는지, 더 단순한 구조로 같은 목적을 달성할 수 없는지, 기존 코드와 섞였을 때 유지보수 비용이 커지지 않는지를 확인하세요.

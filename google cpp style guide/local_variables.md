@@ -1,27 +1,61 @@
-# 지역 변수 (Local Variables)
+# Local Variables (Local Variables)
 
-함수의 변수는 가능한 한 좁은 범위에 두고, 선언할 때 초기화하세요.
+## 원문 규칙 번역
 
-C++에서는 함수 안 어디에서나 변수를 선언할 수 있습니다. 변수는 가능한 한 처음 사용하는 지점에 가깝고 지역적인 범위에 선언하는 것이 좋습니다. 이렇게 하면 독자가 변수의 타입, 초기값, 사용 목적을 더 쉽게 찾을 수 있습니다. 특히 선언과 대입을 분리하기보다 선언과 동시에 초기화하세요.
+함수의 변수를 가능한 가장 좁은 범위에 배치하고 선언에서 변수를 초기화합니다.
+
+C++에서는 함수의 어느 위치에서나 변수를 선언할 수 있습니다. 가능한 한 로컬 범위에서 선언하고 첫 번째 사용에 최대한 가깝게 선언하는 것이 좋습니다. 이렇게 하면 독자가 선언을 더 쉽게 찾고 변수의 유형과 초기화된 내용을 확인할 수 있습니다. 특히 선언과 할당 대신 초기화를 사용해야 합니다. 예:
 
 ```cpp
 int i;
-i = f();      // 나쁨: 선언과 초기화가 분리됨
-int i = f();  // 좋음: 선언하면서 초기화
+i = f();      // Bad -- initialization separate from declaration.
 ```
 
-`if`, `while`, `for` 문에 필요한 변수는 보통 그 문 안에서 선언해 해당 범위에 가두세요.
+```cpp
+int i = f();  // Good -- declaration has initialization.
+```
 
 ```cpp
-while (const char* p = strchr(str, '/')) {
-  str = p + 1;
+int jobs = NumJobs();
+// More code...
+f(jobs);      // Bad -- declaration separate from use.
+```
+
+```cpp
+int jobs = NumJobs();
+f(jobs);      // Good -- declaration immediately (or closely) followed by use.
+```
+
+```cpp
+std::vector<int> v;
+v.push_back(1);  // Prefer initializing using brace initialization.
+v.push_back(2);
+```
+
+```cpp
+std::vector<int> v = {1, 2};  // Good -- v starts initialized.
+```
+
+if , while 및 for 문에 필요한 변수는 일반적으로 해당 문 내에서 선언되어야 하므로 해당 변수는 해당 범위로 제한됩니다. 예를 들어:
+
+```cpp
+while (const char* p = strchr(str, '/')) str = p + 1;
+```
+
+한 가지 주의 사항이 있습니다. 변수가 객체인 경우 변수가 범위에 들어가고 생성될 때마다 해당 생성자가 호출되고, 범위를 벗어날 때마다 소멸자가 호출됩니다.
+
+```cpp
+// Inefficient implementation:
+for (int i = 0; i < 1000000; ++i) {
+  Foo f;  // My ctor and dtor get called 1000000 times each.
+  f.DoSomething(i);
 }
 ```
 
-단, 객체 변수는 범위에 들어갈 때마다 생성자가 호출되고 범위를 벗어날 때마다 소멸자가 호출됩니다. 반복문 안에서 매번 생성과 소멸이 일어나 비효율적이라면 반복문 밖에 두는 편이 더 나을 수 있습니다.
+해당 루프 외부의 루프에 사용되는 변수를 선언하는 것이 더 효율적일 수 있습니다.
 
 ```cpp
-Foo f;  // 생성자와 소멸자가 한 번씩만 호출됨
+Foo f;  // My ctor and dtor get called once each.
 for (int i = 0; i < 1000000; ++i) {
   f.DoSomething(i);
 }
@@ -31,6 +65,4 @@ for (int i = 0; i < 1000000; ++i) {
 
 ## 이해하기 쉽게 설명하기
 
-지역 변수의 핵심은 "필요해지는 순간에 만들고, 더 이상 필요 없는 곳으로 새지 않게 하는 것"입니다. 함수 시작 부분에 모든 변수를 몰아 선언하면 독자는 변수가 실제로 어디에서 쓰이는지 계속 추적해야 합니다.
-
-하지만 범위를 좁히는 규칙도 성능과 균형을 맞춰야 합니다. 값이 싼 정수나 포인터는 반복문 안에 둬도 부담이 거의 없지만, 생성과 소멸이 비싼 객체는 반복문 밖으로 빼는 것이 더 명확하고 효율적일 수 있습니다.
+Local Variables 규칙을 적용할 때는 원문 규칙을 문자 그대로 외우기보다, 왜 이 선택이 독자에게 더 명확한지 살펴보면 쉽습니다. 코드 리뷰에서는 이 기능이 호출 지점에서 의도를 숨기지 않는지, 더 단순한 구조로 같은 목적을 달성할 수 없는지, 기존 코드와 섞였을 때 유지보수 비용이 커지지 않는지를 확인하세요.
