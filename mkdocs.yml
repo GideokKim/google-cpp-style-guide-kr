@@ -79,6 +79,7 @@ extra:
     provider: google
     property: !ENV GOOGLE_ANALYTICS_KEY
 
+
 # Navigation
 docs_dir: google cpp style guide
 nav:
@@ -95,10 +96,21 @@ nav:
     - 헤더 파일에서 함수 정의하기: defining_functions_in_header_files.md
     - 포함 순서와 이름: names_and_order_of_includes.md
   - 스코프:
-    - 범위 지정: scoping.md
-    - 네임스페이스: namespaces.md
-    - 내부 연결: internal_linkage.md
-    - 비멤버, 정적 멤버, 전역 함수: nonmember_static_member_and_global_functions.md
-    - 지역 변수: local_variables.md
-    - 정적 변수와 전역 변수: static_and_global_variables.md
-    - thread_local 변수: thread_local_variables.md
+    - Scoping: scoping.md
+    - Namespaces: namespaces.md
+    - Internal Linkage: internal_linkage.md
+    - Nonmember, Static Member, and Global Functions: nonmember_static_member_and_global_functions.md
+    - Local Variables: local_variables.md
+    - Static and Global Variables: static_and_global_variables.md
+    - thread_local Variables: thread_local_variables.md
+  - 클래스:
+    - 클래스: classes.md
+    - 생성자에서 작업하기: doing_work_in_constructors.md
+    - 암시적 변환: implicit_conversions.md
+    - 복사 가능 및 이동 가능 타입: copyable_and_movable_types.md
+    - 구조체와 클래스: structs_vs_classes.md
+    - 구조체와 쌍/튜플: structs_vs_pairs_and_tuples.md
+    - 상속: inheritance.md
+    - 연산자 오버로딩: operator_overloading.md
+    - 접근 제어: access_control.md
+    - 선언 순서: declaration_order.md
