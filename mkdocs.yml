@@ -155,3 +155,5 @@ nav:
     - 비표준 확장: nonstandard_extensions.md
     - 별칭: aliases.md
     - switch 문: switch_statements.md
+  - 포용적인 언어:
+    - 포용적인 언어: inclusive_language.md
