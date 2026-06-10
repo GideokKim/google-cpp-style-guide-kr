@@ -25,13 +25,13 @@ auto Foo(int x) -> int;
 ```cpp
     template <typename T, typename U>
     auto Add(T t, U u) -> decltype(t + u);
-  
+
 ```
 
 ```cpp
     template <typename T, typename U>
     decltype(declval<T&>() + declval<U&>()) Add(T t, U u);
-  
+
 ```
 
 후행 반환 유형 구문은 C 및 Java와 같은 C++ 유사 언어에 유사하지 않으므로 일부 독자에게는 익숙하지 않을 수 있습니다.

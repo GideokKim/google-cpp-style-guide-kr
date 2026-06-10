@@ -30,7 +30,7 @@ thread_local 변수에는 미묘한 소멸 순서 문제가 있습니다. 스레
 
 ```cpp
    constinit thread_local Foo foo = ...;
-  
+
 ```
 
 함수 내부의 thread_local 변수에는 초기화 문제가 없지만 스레드 종료 중에 여전히 use-after-free 위험이 있습니다. 함수 범위 thread_local을 사용하면 이를 노출하는 함수나 정적 메서드를 정의하여 클래스 또는 네임스페이스 범위 thread_local을 시뮬레이션할 수 있습니다.
