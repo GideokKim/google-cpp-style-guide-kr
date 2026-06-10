@@ -1,6 +1,6 @@
 # Google C++ Style Guide - 한글 번역
 
-이 저장소는 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)의 한글 번역본을 제공합니다.  
+이 저장소는 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)의 한글 번역본을 제공합니다.
 Google C++ Style Guide는 C++ 코드 작성 시 권장되는 스타일과 모범 사례를 정의한 문서입니다.
 이 번역 프로젝트는 한국어 사용자들이 스타일 가이드를 더 쉽게 이해하고 활용할 수 있도록 돕기 위해 시작되었습니다.
 
