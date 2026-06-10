@@ -172,3 +172,13 @@ nav:
     - 매크로 이름: macro_names.md
     - 별칭 이름: naming_aliases.md
     - 이름 규칙의 예외: exceptions_to_naming_rules.md
+  - 주석:
+    - 주석: comments.md
+    - 주석 스타일: comment_style.md
+    - 파일 주석: file_comments.md
+    - 구조체와 클래스 주석: struct_and_class_comments.md
+    - 함수 주석: function_comments.md
+    - 변수 주석: variable_comments.md
+    - 구현 주석: implementation_comments.md
+    - 문장부호, 철자, 문법: punctuation_spelling_and_grammar.md
+    - TODO 주석: todo_comments.md
