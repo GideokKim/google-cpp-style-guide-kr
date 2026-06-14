@@ -1,7 +1,5 @@
 # 생성자 초기화 목록 (Constructor Initializer Lists)
 
-## 원문 규칙 번역
-
 생성자 이니셜라이저 목록은 모두 한 줄에 표시되거나 후속 줄에 4개의 공백이 들여쓰기될 수 있습니다.
 
 이니셜라이저 목록에 허용되는 형식은 다음과 같습니다.
@@ -35,14 +33,24 @@ MyClass::MyClass(int var)
 
 ---
 
----
-
 ## 이해하기 쉽게 설명하기
 
-이 규칙의 핵심은 이니셜라이저 목록에 허용되는 형식은 다음과 같습니다.
+### 핵심: 한 줄에, 안 되면 콜론 앞에서 줄바꿈하고 4칸 들여쓰기
 
-실제로 코드를 볼 때는 생성자 이니셜라이저 목록은 모두 한 줄에 표시되거나 후속 줄에 4개의 공백이 들여쓰기될 수 있습니다.
+```cpp
+// 한 줄에 다 들어가면
+MyClass::MyClass(int var) : some_var_(var) { DoSomething(); }
 
-점검할 때는 특히 다음을 확인하세요:
+// 안 들어가면 콜론(:) 앞에서 줄바꿈 + 4칸 들여쓰기
+MyClass::MyClass(int var)
+    : some_var_(var), some_other_var_(var + 1) {
+  DoSomething();
+}
 
-- 이 선택이 독자에게 숨은 전제나 비용을 만들지 않는지 확인하세요.
+// 여러 줄이면 멤버마다 한 줄씩, 정렬
+MyClass::MyClass(int var)
+    : some_var_(var),             // 4칸 들여쓰기
+      some_other_var_(var + 1) {  // 정렬
+  DoSomething();
+}
+```
