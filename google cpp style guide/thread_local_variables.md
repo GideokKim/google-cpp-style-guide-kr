@@ -1,6 +1,4 @@
-# thread_local Variables (thread_local Variables)
-
-## 원문 규칙 번역
+# thread_local 변수
 
 함수 내에서 선언되지 않은 thread_local 변수는 실제 컴파일 타임 상수로 초기화되어야 하며 이는 constinit 특성을 사용하여 적용되어야 합니다. 스레드 로컬 데이터를 정의하는 다른 방법보다 thread_local을 선호합니다.
 
@@ -29,8 +27,7 @@ thread_local 변수에는 미묘한 소멸 순서 문제가 있습니다. 스레
 클래스 또는 네임스페이스 범위의 thread_local 변수는 실제 컴파일 타임 상수로 초기화되어야 합니다(즉, 동적 초기화가 없어야 합니다). 이를 적용하려면 클래스 또는 네임스페이스 범위의 thread_local 변수에 constinit(또는 constexpr , 그러나 이는 드물어야 함)로 주석을 달아야 합니다.
 
 ```cpp
-   constinit thread_local Foo foo = ...;
-
+constinit thread_local Foo foo = ...;
 ```
 
 함수 내부의 thread_local 변수에는 초기화 문제가 없지만 스레드 종료 중에 여전히 use-after-free 위험이 있습니다. 함수 범위 thread_local을 사용하면 이를 노출하는 함수나 정적 메서드를 정의하여 클래스 또는 네임스페이스 범위 thread_local을 시뮬레이션할 수 있습니다.
@@ -48,15 +45,41 @@ thread_local은 스레드 로컬 데이터를 정의하는 다른 메커니즘�
 
 ---
 
----
-
 ## 이해하기 쉽게 설명하기
 
-이 규칙의 핵심은 다른 thread_local 에 액세스할 가능성을 최소화하기 위해 간단한 유형 또는 파기 시 사용자 제공 코드를 실행하지 않는 것이 입증된 유형을 선호하세요.
+### thread_local이란?
 
-실제로 코드를 볼 때는 함수 내부의 thread_local 변수에는 초기화 문제가 없지만 스레드 종료 중에 여전히 use-after-free 위험이 있습니다.
+`thread_local` 변수는 스레드마다 별도의 인스턴스를 가집니다. 같은 변수 이름이라도 스레드 A와 스레드 B는 서로 다른 객체에 접근합니다. 덕분에 별도의 락 없이도 스레드 간 데이터 경합에서 안전합니다.
 
-점검할 때는 특히 다음을 확인하세요:
+```cpp
+thread_local Foo foo = ...;
+```
 
-- 특히, 전역 및 정적 변수에 대한 소멸자를 건너뛰는 것은 해당 수명이 프로그램 종료 시 끝나기 때문에 허용됩니다.
-- thread_local 변수의 소멸자에 의해 트리거된 코드가 해당 스레드에서 이미 파괴된 thread_local을 참조하는 경우 use-after-free를 진단하기가 특히 어렵습니다.
+### 핵심 규칙: 클래스·네임스페이스 범위는 "진짜 컴파일 타임 상수"로
+
+함수 **밖**(클래스·네임스페이스 범위)에 선언한 `thread_local`은 동적 초기화가 없어야 하며, 이를 `constinit`로 강제해야 합니다.
+
+```cpp
+constinit thread_local Foo foo = ...;
+```
+
+함수 **안**의 `thread_local`은 초기화 순서 문제가 없으므로, 복잡한 초기화가 필요하면 함수로 감싸 노출하는 패턴이 안전합니다.
+
+```cpp
+Foo& MyThreadLocalFoo() {
+  thread_local Foo result = ComplicatedInitialization();
+  return result;
+}
+```
+
+### 주의: 소멸 순서와 use-after-free
+
+`thread_local`은 **스레드가 끝날 때마다** 소멸됩니다. 어떤 `thread_local`의 소멸자가 이미 파괴된 다른 `thread_local`을 참조하면 진단하기 어려운 use-after-free가 됩니다. 그래서 소멸 시 사용자 코드를 실행하지 않는 간단한 타입을 선호하세요.
+
+또한 전역/정적 변수에서 쓰던 "소멸자 건너뛰기(의도적 누수)" 기법은 `thread_local`에는 통하지 않습니다. 전역은 프로그램 종료 시 OS가 한꺼번에 정리하지만, `thread_local`은 스레드가 끝날 때마다 누수가 쌓여 종료된 스레드 수에 비례해 리소스가 새기 때문입니다.
+
+### 단점 요약
+
+- 접근 시 스레드 시작/첫 사용 중 예측 불가한 양의 코드가 실행될 수 있음
+- 사실상 전역 변수라, 스레드 안전성만 빼면 전역의 단점을 그대로 가짐
+- 메모리 사용량이 실행 중인 스레드 수에 비례해 커짐
