@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 번역본 사이트
+    url: https://gideokkim.github.io/google-cpp-style-guide-kr/
+    about: 이슈를 남기기 전에 현재 번역본을 먼저 확인해 주세요.
+  - name: Google C++ Style Guide (원문)
+    url: https://google.github.io/styleguide/cppguide.html
+    about: 원문 내용 자체에 대한 문의는 원문 저장소로 보내주세요.

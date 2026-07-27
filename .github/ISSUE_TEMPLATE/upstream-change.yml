@@ -1,0 +1,42 @@
+name: 원문 변경 반영
+description: 원문이 바뀌었거나 아직 번역되지 않은 주제를 알려주세요.
+labels:
+  - documentation
+  - enhancement
+body:
+  - type: input
+    id: upstream
+    attributes:
+      label: 원문 위치
+      description: 변경되었거나 새로 추가된 원문 섹션의 주소를 적어주세요.
+      placeholder: https://google.github.io/styleguide/cppguide.html#Casting
+    validations:
+      required: true
+
+  - type: input
+    id: page
+    attributes:
+      label: 대응하는 번역 파일
+      description: 이미 있는 문서라면 경로를, 새로 만들어야 한다면 비워두세요.
+      placeholder: google cpp style guide/casting.md
+    validations:
+      required: false
+
+  - type: textarea
+    id: change
+    attributes:
+      label: 변경 내용
+      description: 원문에서 무엇이 추가·수정·삭제되었는지 적어주세요.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: 함께 갱신이 필요한 항목
+      description: 아는 범위에서 체크해 주세요. 확실하지 않으면 비워두셔도 됩니다.
+      options:
+        - label: 번역 본문
+        - label: "`옮긴이 풀이` 섹션"
+        - label: "`scripts/upstream-topic-map.json`"
+        - label: "`mkdocs.yml` navigation"
