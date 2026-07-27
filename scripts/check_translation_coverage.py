@@ -31,10 +31,10 @@ def main() -> int:
         if filename not in nav:
             missing_nav.append(filename)
         content = path.read_text(encoding="utf-8")
-        if "이해하기 쉽게 설명하기" not in content:
+        if "옮긴이 풀이" not in content:
             missing_explanations.append(filename)
         else:
-            body = content.split("이해하기 쉽게 설명하기", 1)[1]
+            body = content.split("옮긴이 풀이", 1)[1]
             normalized = " ".join(body.split())
             if "원문 규칙을 문자 그대로 외우기보다" in normalized:
                 generic_explanations.append(filename)

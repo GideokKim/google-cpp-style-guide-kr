@@ -22,7 +22,7 @@ enum class UrlTableError { ...
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: 타입 이름은 PascalCase
 

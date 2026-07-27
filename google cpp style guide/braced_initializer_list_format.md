@@ -34,7 +34,7 @@ MyType m = {  // Here, you could also break before {.
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: 함수 호출처럼 형식을 맞춘다
 

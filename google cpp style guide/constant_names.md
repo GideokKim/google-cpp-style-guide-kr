@@ -28,7 +28,7 @@ void ComputeFoo(absl::string_view suffix) {
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: 상수는 k 접두사 + PascalCase
 

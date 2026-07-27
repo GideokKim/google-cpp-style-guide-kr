@@ -18,7 +18,7 @@ return(result);                // return is not a function!
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: 반환값을 불필요하게 괄호로 감싸지 마라
 

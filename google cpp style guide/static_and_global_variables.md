@@ -98,7 +98,7 @@ int p = getpid();  // Allowed, as long as no other static variable
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 두 개의 축: 소멸(destruction)과 초기화(initialization)
 
