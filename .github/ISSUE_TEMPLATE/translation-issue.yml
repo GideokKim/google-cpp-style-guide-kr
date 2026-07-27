@@ -1,0 +1,50 @@
+name: 번역 오류·개선 제안
+description: 오역, 오탈자, 어색한 표현, 빠진 내용을 알려주세요.
+labels:
+  - documentation
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 유형
+      options:
+        - 오역 (원문과 뜻이 다름)
+        - 오탈자·맞춤법
+        - 어색한 표현 (뜻은 맞지만 읽기 불편함)
+        - 내용 누락 (원문에 있는데 번역에 없음)
+        - 기타
+    validations:
+      required: true
+
+  - type: input
+    id: page
+    attributes:
+      label: 대상 페이지
+      description: 파일 경로 또는 사이트 주소를 적어주세요.
+      placeholder: google cpp style guide/casting.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: 현재 번역
+      description: 문제가 되는 부분을 그대로 붙여넣어 주세요.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 제안하는 번역
+      description: 제안이 있다면 적어주세요. 없으면 비워두셔도 됩니다.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 원문 및 추가 설명
+      description: 해당 부분의 영어 원문, 참고 자료, 그렇게 고쳐야 하는 이유 등을 적어주세요.
+    validations:
+      required: false

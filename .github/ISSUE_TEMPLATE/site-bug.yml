@@ -1,0 +1,43 @@
+name: 사이트 오류
+description: 페이지가 열리지 않거나, 링크·표·코드 블록이 깨지는 문제를 알려주세요.
+labels:
+  - bug
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 증상
+      options:
+        - 페이지가 열리지 않음 (404 등)
+        - 링크가 깨짐
+        - 코드 블록·표 렌더링이 깨짐
+        - 탐색 메뉴 문제
+        - 기타
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: 발생 위치
+      description: 문제가 나타나는 페이지 주소를 적어주세요.
+      placeholder: https://gideokkim.github.io/google-cpp-style-guide-kr/casting/
+    validations:
+      required: true
+
+  - type: textarea
+    id: detail
+    attributes:
+      label: 상세 내용
+      description: 무엇을 기대했고 실제로는 어떻게 보이는지 적어주세요. 스크린샷을 첨부하면 좋습니다.
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: 환경
+      description: 브라우저와 운영체제를 적어주세요.
+      placeholder: Chrome 131 / macOS 15
+    validations:
+      required: false
