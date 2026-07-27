@@ -38,7 +38,7 @@ class MyClass : public OtherClass {
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: 접근 지정자는 1칸 들여쓰기, public→protected→private 순
 

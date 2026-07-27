@@ -22,7 +22,7 @@ digits.erase(std::remove_if(digits.begin(), digits.end(), [&to_remove](int i) {
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: 일반 함수처럼, 캡처 목록은 쉼표 목록처럼
 

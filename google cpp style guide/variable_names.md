@@ -41,7 +41,7 @@ struct UrlTableProperties {
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: 변수는 snake_case, 클래스 멤버는 뒤에 밑줄
 

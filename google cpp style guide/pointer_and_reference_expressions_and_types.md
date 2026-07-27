@@ -43,7 +43,7 @@ const std::string & str;  // Bad - spaces on both sides of &
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: `.`/`->` 주위 공백 없음, `*`/`&`는 타입 쪽에 붙인다
 

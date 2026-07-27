@@ -22,7 +22,7 @@ enum class AlternateUrlTableError {
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: 열거자는 상수처럼 (k 접두사)
 

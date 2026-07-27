@@ -35,7 +35,7 @@ T Add(T x, T y, T z) { return x + y + z; }
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: Concepts는 아껴서 사용
 

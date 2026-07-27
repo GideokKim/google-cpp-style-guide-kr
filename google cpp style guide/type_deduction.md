@@ -104,7 +104,7 @@ auto [/*field_name1=*/bound_name1, /*field_name2=*/bound_name2] = ...
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: 더 명확하거나 더 안전할 때만 타입 추론
 

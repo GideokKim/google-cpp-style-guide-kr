@@ -39,7 +39,7 @@ std::unique_ptr<Iterator> GetIterator(absl::string_view start_word) const;
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: 선언 주석 = "무엇을", 정의 주석 = "어떻게"
 

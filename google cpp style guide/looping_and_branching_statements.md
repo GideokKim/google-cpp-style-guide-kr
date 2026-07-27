@@ -122,7 +122,7 @@ while (condition);  // Bad - looks like part of `do-while` loop.
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: 키워드·괄호·중괄호의 공백과 줄바꿈 규칙
 

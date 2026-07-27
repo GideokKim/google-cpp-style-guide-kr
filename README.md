@@ -60,7 +60,7 @@ repository/
 1. `scripts/upstream-topic-map.json`
 2. 대응하는 번역 Markdown 파일
 3. `mkdocs.yml` navigation
-4. 각 페이지의 `이해하기 쉽게 설명하기` 섹션
+4. 각 페이지의 `옮긴이 풀이` 섹션
 
 로컬 검증 명령:
 

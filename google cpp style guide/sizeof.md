@@ -22,7 +22,7 @@ if (raw_size < sizeof(int)) {
 
 ---
 
-## 이해하기 쉽게 설명하기
+## 옮긴이 풀이
 
 ### 핵심: sizeof(type)보다 sizeof(varname)
 
