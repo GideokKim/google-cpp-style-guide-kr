@@ -2,58 +2,58 @@
 
 함수의 변수를 가능한 한 가장 좁은 범위에 배치하고, 선언과 동시에 초기화하세요.
 
-C++에서는 함수의 어느 위치에서나 변수를 선언할 수 있습니다. 가능한 한 로컬 범위에서 선언하고 첫 번째 사용에 최대한 가깝게 선언하는 것이 좋습니다. 이렇게 하면 독자가 선언을 더 쉽게 찾고 변수의 유형과 초기화된 내용을 확인할 수 있습니다. 특히 선언과 할당 대신 초기화를 사용해야 합니다. 예:
+C++에서는 함수의 어느 위치에서나 변수를 선언할 수 있습니다. 가능한 한 지역적인 범위에서, 그리고 처음 사용하는 곳에 최대한 가깝게 선언하기를 권장합니다. 그러면 독자가 선언을 더 쉽게 찾고 변수의 타입과 초깃값이 무엇인지 확인할 수 있습니다. 특히 선언한 뒤에 할당하는 대신 선언과 동시에 초기화해야 합니다. 예를 들면 다음과 같습니다.
 
 ```cpp
 int i;
-i = f();      // Bad -- initialization separate from declaration.
+i = f();      // 나쁨 -- 초기화가 선언과 분리되어 있습니다.
 ```
 
 ```cpp
-int i = f();  // Good -- declaration has initialization.
-```
-
-```cpp
-int jobs = NumJobs();
-// More code...
-f(jobs);      // Bad -- declaration separate from use.
+int i = f();  // 좋음 -- 선언에 초기화가 포함되어 있습니다.
 ```
 
 ```cpp
 int jobs = NumJobs();
-f(jobs);      // Good -- declaration immediately (or closely) followed by use.
+// 더 많은 코드...
+f(jobs);      // 나쁨 -- 선언이 사용과 떨어져 있습니다.
+```
+
+```cpp
+int jobs = NumJobs();
+f(jobs);      // 좋음 -- 선언 바로 뒤에(또는 가까이에) 사용이 이어집니다.
 ```
 
 ```cpp
 std::vector<int> v;
-v.push_back(1);  // Prefer initializing using brace initialization.
+v.push_back(1);  // 중괄호 초기화를 사용해 초기화하는 편이 낫습니다.
 v.push_back(2);
 ```
 
 ```cpp
-std::vector<int> v = {1, 2};  // Good -- v starts initialized.
+std::vector<int> v = {1, 2};  // 좋음 -- v가 초기화된 상태로 시작합니다.
 ```
 
-if , while 및 for 문에 필요한 변수는 일반적으로 해당 문 내에서 선언되어야 하므로 해당 변수는 해당 범위로 제한됩니다. 예를 들어:
+`if`, `while`, `for` 문에 필요한 변수는 보통 해당 문 안에서 선언하여, 그런 변수가 그 범위로 한정되도록 하세요. 예를 들면 다음과 같습니다.
 
 ```cpp
 while (const char* p = strchr(str, '/')) str = p + 1;
 ```
 
-한 가지 주의 사항이 있습니다. 변수가 객체인 경우 변수가 범위에 들어가고 생성될 때마다 해당 생성자가 호출되고, 범위를 벗어날 때마다 소멸자가 호출됩니다.
+한 가지 주의할 점이 있습니다. 변수가 객체라면, 그 변수가 범위에 들어와 생성될 때마다 생성자가 호출되고, 범위를 벗어날 때마다 소멸자가 호출됩니다.
 
 ```cpp
-// Inefficient implementation:
+// 비효율적인 구현:
 for (int i = 0; i < 1000000; ++i) {
-  Foo f;  // My ctor and dtor get called 1000000 times each.
+  Foo f;  // 내 생성자와 소멸자가 각각 1000000번씩 호출됩니다.
   f.DoSomething(i);
 }
 ```
 
-해당 루프 외부의 루프에 사용되는 변수를 선언하는 것이 더 효율적일 수 있습니다.
+루프에서 사용하는 그런 변수는 루프 밖에서 선언하는 편이 더 효율적일 수 있습니다.
 
 ```cpp
-Foo f;  // My ctor and dtor get called once each.
+Foo f;  // 내 생성자와 소멸자가 각각 한 번씩만 호출됩니다.
 for (int i = 0; i < 1000000; ++i) {
   f.DoSomething(i);
 }
