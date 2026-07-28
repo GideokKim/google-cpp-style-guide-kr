@@ -29,7 +29,7 @@ namespace {
 ### 두 가지 방법
 
 ```cpp
-// 방법 1: 이름 없는 네임스페이스 (모든 선언에 적용 가능, 권장)
+// 방법 1: 이름 없는 네임스페이스 (모든 선언에 적용 가능)
 namespace {
 void HelperUsedOnlyHere() { ... }
 const int kLocalConstant = 42;
