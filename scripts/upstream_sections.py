@@ -121,11 +121,14 @@ def write_snapshot(sections, *, commit: str | None, source: str) -> None:
         owners[slug] = section.id
 
     SECTIONS_DIR.mkdir(parents=True, exist_ok=True)
-    for stale in SECTIONS_DIR.glob("*.txt"):
-        stale.unlink()
     for section in sections:
         target = SECTIONS_DIR / f"{slug_for(section.id)}.txt"
         target.write_text(section.text + "\n", encoding="utf-8")
+
+    new_files = {f"{slug_for(s.id)}.txt" for s in sections}
+    for stale in SECTIONS_DIR.glob("*.txt"):
+        if stale.name not in new_files:
+            stale.unlink()
 
     manifest = {
         "source": source,

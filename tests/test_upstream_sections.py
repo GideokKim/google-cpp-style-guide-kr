@@ -152,6 +152,19 @@ class SnapshotTest(unittest.TestCase):
     def test_missing_snapshot_reads_as_none(self):
         self.assertIsNone(us.load_snapshot())
 
+    def test_filename_collision_prevents_write_and_leaves_snapshot_clean(self):
+        # A+B and A,B both map to A_B via slug_for
+        self.assertEqual(us.slug_for("A+B"), us.slug_for("A,B"))
+        sections = self.make_sections([
+            (3, "A+B", "A+B", "<p>a</p>"),
+            (3, "A,B", "A,B", "<p>b</p>"),
+        ])
+
+        with self.assertRaises(SystemExit):
+            us.write_snapshot(sections, commit=None, source="local")
+
+        self.assertFalse(us.MANIFEST.exists())
+
 
 class ParseOrDieTest(unittest.TestCase):
     def test_short_document_is_rejected(self):
