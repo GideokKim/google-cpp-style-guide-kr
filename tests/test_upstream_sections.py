@@ -1,7 +1,9 @@
 """Tests for scripts/upstream_sections.py."""
 from __future__ import annotations
 
+import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -96,6 +98,74 @@ class SlugTest(unittest.TestCase):
 
     def test_safe_ids_are_untouched(self):
         self.assertEqual(us.slug_for("Structs_vs._Classes"), "Structs_vs._Classes")
+
+
+class SnapshotTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        root = Path(self.tmp.name)
+        self._saved = (us.SNAPSHOT_DIR, us.MANIFEST, us.SECTIONS_DIR)
+        us.SNAPSHOT_DIR = root / "upstream"
+        us.MANIFEST = us.SNAPSHOT_DIR / "manifest.json"
+        us.SECTIONS_DIR = us.SNAPSHOT_DIR / "sections"
+
+    def tearDown(self):
+        us.SNAPSHOT_DIR, us.MANIFEST, us.SECTIONS_DIR = self._saved
+
+    def make_sections(self, entries):
+        return us.split_sections(build_document(entries))
+
+    def test_round_trip_preserves_section_text(self):
+        sections = self.make_sections([
+            (3, "Casting", "Casting", "<p>alpha</p>"),
+            (3, "0_and_nullptr/NULL", "0 and nullptr/NULL", "<p>beta</p>"),
+        ])
+
+        us.write_snapshot(sections, commit="abc1234", source="local")
+        manifest, texts = us.load_snapshot()
+
+        self.assertEqual(manifest["upstream_commit"], "abc1234")
+        self.assertEqual(set(texts), {"Casting", "0_and_nullptr/NULL"})
+        self.assertEqual(texts["Casting"], sections[0].text)
+
+    def test_unsafe_id_is_stored_under_a_safe_filename(self):
+        sections = self.make_sections([(3, "0_and_nullptr/NULL", "x", "<p>a</p>")])
+
+        us.write_snapshot(sections, commit=None, source="local")
+
+        self.assertTrue((us.SECTIONS_DIR / "0_and_nullptr_NULL.txt").exists())
+
+    def test_removed_sections_leave_no_stale_file(self):
+        first = self.make_sections([
+            (3, "Boost", "Boost", "<p>a</p>"),
+            (3, "Casting", "Casting", "<p>b</p>"),
+        ])
+        us.write_snapshot(first, commit=None, source="local")
+        second = self.make_sections([(3, "Casting", "Casting", "<p>b</p>")])
+
+        us.write_snapshot(second, commit=None, source="local")
+
+        self.assertFalse((us.SECTIONS_DIR / "Boost.txt").exists())
+        self.assertEqual(set(us.load_snapshot()[1]), {"Casting"})
+
+    def test_missing_snapshot_reads_as_none(self):
+        self.assertIsNone(us.load_snapshot())
+
+
+class ParseOrDieTest(unittest.TestCase):
+    def test_short_document_is_rejected(self):
+        document = build_document([(3, "Only", "Only", "<p>a</p>")])
+
+        with self.assertRaises(SystemExit):
+            us.parse_or_die(document)
+
+    def test_full_length_document_is_accepted(self):
+        entries = [(3, f"Section{i}", f"Section {i}", "<p>a</p>") for i in range(95)]
+
+        sections = us.parse_or_die(build_document(entries))
+
+        self.assertEqual(len(sections), 95)
 
 
 if __name__ == "__main__":
