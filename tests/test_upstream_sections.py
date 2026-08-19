@@ -181,5 +181,87 @@ class ParseOrDieTest(unittest.TestCase):
         self.assertEqual(len(sections), 95)
 
 
+class CompareTest(unittest.TestCase):
+    def sections(self, entries):
+        return us.split_sections(build_document(entries))
+
+    def test_reports_changed_added_and_removed(self):
+        previous = {
+            "Casting": us.normalize("<p>old</p>"),
+            "Boost": us.normalize("<p>gone</p>"),
+            "Naming": us.normalize("<p>same</p>"),
+        }
+        current = self.sections([
+            (3, "Casting", "Casting", "<p>new</p>"),
+            (3, "Naming", "Naming", "<p>same</p>"),
+            (3, "Third_party_Libraries", "Third-party Libraries", "<p>fresh</p>"),
+        ])
+
+        changes = us.compare(current, previous)
+
+        self.assertEqual([s.id for s, _ in changes.changed], ["Casting"])
+        self.assertEqual([s.id for s in changes.added], ["Third_party_Libraries"])
+        self.assertEqual(changes.removed, ["Boost"])
+        self.assertTrue(changes)
+
+    def test_identical_input_is_falsy(self):
+        current = self.sections([(3, "Naming", "Naming", "<p>same</p>")])
+        previous = {"Naming": current[0].text}
+
+        self.assertFalse(us.compare(current, previous))
+
+
+class RenderTest(unittest.TestCase):
+    def build_changes(self):
+        current = us.split_sections(build_document([
+            (3, "Casting", "Casting", "<p>new wording</p>"),
+            (3, "Third_party_Libraries", "Third-party Libraries", "<p>fresh</p>"),
+        ]))
+        previous = {
+            "Casting": us.normalize("<p>old wording</p>"),
+            "Boost": us.normalize("<p>gone</p>"),
+        }
+        return us.compare(current, previous)
+
+    def test_body_names_the_translated_file_of_a_changed_section(self):
+        body = us.render_issue_body(
+            self.build_changes(),
+            {"Casting": "casting.md"},
+            "aaaaaaaa",
+            "bbbbbbbb",
+        )
+
+        self.assertIn("casting.md", body)
+        self.assertIn("- [ ]", body)
+
+    def test_body_flags_added_and_removed_sections(self):
+        body = us.render_issue_body(self.build_changes(), {}, None, None)
+
+        self.assertIn("Third_party_Libraries", body)
+        self.assertIn("Boost", body)
+        self.assertIn("upstream-topic-map.json", body)
+
+    def test_body_links_the_upstream_compare_view(self):
+        body = us.render_issue_body(self.build_changes(), {}, "aaaaaaaa", "bbbbbbbb")
+
+        self.assertIn(
+            "https://github.com/google/styleguide/compare/aaaaaaaa...bbbbbbbb", body
+        )
+
+    def test_title_carries_the_date_and_short_sha(self):
+        title = us.render_issue_title("1809c769abcdef", "2026-06-03T00:00:00Z")
+
+        self.assertEqual(title, "원문 변경 감지: 2026-06-03 (1809c769)")
+
+    def test_diff_excerpt_is_truncated(self):
+        before = "\n".join(f"line {i}" for i in range(200))
+        after = "\n".join(f"changed {i}" for i in range(200))
+
+        excerpt = us.diff_excerpt(before, after)
+
+        self.assertLessEqual(len(excerpt.splitlines()), us.DIFF_LIMIT + 1)
+        self.assertIn("생략", excerpt)
+
+
 if __name__ == "__main__":
     unittest.main()

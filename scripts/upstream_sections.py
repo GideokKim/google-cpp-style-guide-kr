@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import difflib
 import hashlib
 import html
 import json
@@ -24,6 +25,7 @@ CPPGUIDE_URL = (
     "https://raw.githubusercontent.com/google/styleguide/gh-pages/cppguide.html"
 )
 MIN_SECTIONS = 90
+DIFF_LIMIT = 40
 
 HEADING_RE = re.compile(r'<h([23])\s+id="([^"]+)"[^>]*>(.*?)</h\1>', re.S)
 PRE_RE = re.compile(r"(<pre\b[^>]*>.*?</pre>)", re.S | re.I)
@@ -161,6 +163,112 @@ def load_snapshot():
     return manifest, texts
 
 
+@dataclass
+class Changes:
+    changed: list
+    added: list
+    removed: list
+
+    def __bool__(self) -> bool:
+        return bool(self.changed or self.added or self.removed)
+
+
+def compare(sections, previous_texts) -> Changes:
+    changed, added = [], []
+    for section in sections:
+        if section.id not in previous_texts:
+            added.append(section)
+        elif previous_texts[section.id] != section.text:
+            changed.append((section, previous_texts[section.id]))
+    current_ids = {section.id for section in sections}
+    removed = [key for key in previous_texts if key not in current_ids]
+    return Changes(changed=changed, added=added, removed=removed)
+
+
+def load_topic_map() -> dict[str, str]:
+    rows = json.loads(TOPIC_MAP.read_text(encoding="utf-8"))
+    return {row["id"]: row["file"] for row in rows}
+
+
+def diff_excerpt(previous_text: str, current_text: str) -> str:
+    lines = list(
+        difflib.unified_diff(
+            previous_text.splitlines(),
+            current_text.splitlines(),
+            fromfile="before",
+            tofile="after",
+            lineterm="",
+            n=1,
+        )
+    )
+    if len(lines) > DIFF_LIMIT:
+        omitted = len(lines) - DIFF_LIMIT
+        lines = lines[:DIFF_LIMIT] + [f"... ({omitted}줄 생략)"]
+    return "\n".join(lines)
+
+
+def render_issue_title(commit: str | None, captured_at: str) -> str:
+    short = commit[:8] if commit else "unknown"
+    return f"원문 변경 감지: {captured_at[:10]} ({short})"
+
+
+def render_issue_body(changes, topic_map, previous_commit, current_commit) -> str:
+    out = []
+    if previous_commit and current_commit:
+        out += [
+            "원문 비교: https://github.com/google/styleguide/compare/"
+            f"{previous_commit}...{current_commit}",
+            "",
+        ]
+
+    if changes.changed:
+        out += [
+            "## 내용이 바뀐 섹션",
+            "",
+            "| 섹션 | 원문 제목 | 번역 파일 |",
+            "| --- | --- | --- |",
+        ]
+        for section, _ in changes.changed:
+            target = topic_map.get(section.id)
+            cell = f"`google cpp style guide/{target}`" if target else "(매핑 없음)"
+            out.append(f"| `{section.id}` | {section.title} | {cell} |")
+        out += ["", "### 할 일", ""]
+        for section, _ in changes.changed:
+            target = topic_map.get(section.id, "(매핑 없음)")
+            out.append(f"- [ ] `google cpp style guide/{target}`")
+        out += ["", "### 변경 내용", ""]
+        for section, previous_text in changes.changed:
+            out += [
+                "<details>",
+                f"<summary>{section.title} (<code>{section.id}</code>)</summary>",
+                "",
+                "```diff",
+                diff_excerpt(previous_text, section.text),
+                "```",
+                "",
+                "</details>",
+                "",
+            ]
+
+    if changes.added or changes.removed:
+        out += [
+            "## 섹션 구성 변경",
+            "",
+            "아래는 번역 본문뿐 아니라 `scripts/upstream-topic-map.json`과 "
+            "`mkdocs.yml` nav도 함께 손봐야 합니다.",
+            "",
+        ]
+        for section in changes.added:
+            out.append(
+                f"- [ ] 추가됨: `{section.id}` — {section.title} (새 `.md` 파일 필요)"
+            )
+        for section_id in changes.removed:
+            out.append(f"- [ ] 삭제됨: `{section_id}` — 번역 파일과 nav 항목 정리 필요")
+        out.append("")
+
+    return "\n".join(out).rstrip() + "\n"
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -168,6 +276,11 @@ def main(argv=None) -> int:
     snapshot = sub.add_parser("snapshot", help="rewrite the stored snapshot")
     snapshot.add_argument("--source", default=CPPGUIDE_URL)
     snapshot.add_argument("--commit", default=None)
+
+    diff_cmd = sub.add_parser("diff", help="compare upstream against the snapshot")
+    diff_cmd.add_argument("--source", default=CPPGUIDE_URL)
+    diff_cmd.add_argument("--commit", default=None)
+    diff_cmd.add_argument("--title-out", default=None)
 
     args = parser.parse_args(argv)
     document = read_source(args.source)
@@ -177,6 +290,28 @@ def main(argv=None) -> int:
         write_snapshot(sections, commit=args.commit, source=args.source)
         print(f"wrote {len(sections)} sections to {SNAPSHOT_DIR}")
         return 0
+
+    if args.command == "diff":
+        stored = load_snapshot()
+        if stored is None:
+            raise SystemExit(
+                f"no snapshot at {MANIFEST}; run 'snapshot' once to create it"
+            )
+        manifest, previous_texts = stored
+        changes = compare(sections, previous_texts)
+        if not changes:
+            return 0
+        body = render_issue_body(
+            changes, load_topic_map(), manifest.get("upstream_commit"), args.commit
+        )
+        if args.title_out:
+            title = render_issue_title(
+                args.commit, datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+            )
+            Path(args.title_out).write_text(title + "\n", encoding="utf-8")
+        sys.stdout.write(body)
+        return 0
+
     return 0
 
 
