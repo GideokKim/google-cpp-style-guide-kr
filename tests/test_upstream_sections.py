@@ -65,6 +65,25 @@ class NormalizeTest(unittest.TestCase):
     def test_entities_are_unescaped(self):
         self.assertIn("<int>", us.normalize("<p>vector&lt;int&gt;</p>"))
 
+    def test_inline_tags_do_not_introduce_spaces(self):
+        result = us.normalize(
+            "<code><i>&lt;PROJECT&gt;</i>_<i>&lt;PATH&gt;</i></code>"
+        )
+        self.assertEqual(result, "<PROJECT>_<PATH>")
+
+    def test_prose_and_pre_together_are_both_normalized_correctly(self):
+        fragment = (
+            "<p>Example:</p>"
+            "<pre>if (x) {\n  f();\n}</pre>"
+            "<p>That is the pattern.</p>"
+        )
+        result = us.normalize(fragment)
+        self.assertIn("Example:", result)
+        self.assertIn("<pre>\nif (x) {\n  f();\n}\n</pre>", result)
+        self.assertIn("That is the pattern.", result)
+        self.assertLess(result.index("Example:"), result.index("<pre>"))
+        self.assertLess(result.index("</pre>"), result.index("That is"))
+
 
 class SlugTest(unittest.TestCase):
     def test_characters_illegal_in_filenames_are_replaced(self):

@@ -17,6 +17,9 @@ MIN_SECTIONS = 90
 
 HEADING_RE = re.compile(r'<h([23])\s+id="([^"]+)"[^>]*>(.*?)</h\1>', re.S)
 PRE_RE = re.compile(r"(<pre\b[^>]*>.*?</pre>)", re.S | re.I)
+INLINE_TAG_RE = re.compile(
+    r"</?(?:i|b|em|strong|code|a|span|tt|sub|sup)\b[^>]*>", re.I
+)
 TAG_RE = re.compile(r"<[^>]+>")
 UNSAFE_RE = re.compile(r"[^A-Za-z0-9._-]")
 
@@ -48,7 +51,10 @@ def normalize(fragment: str) -> str:
             code = html.unescape(TAG_RE.sub("", body)).strip("\n")
             parts.append("<pre>\n" + code + "\n</pre>")
         else:
-            prose = " ".join(html.unescape(TAG_RE.sub(" ", chunk)).split())
+            prose = " ".join(
+                html.unescape(TAG_RE.sub(" ", INLINE_TAG_RE.sub("", chunk)))
+                .split()
+            )
             if prose:
                 parts.append(prose)
     return "\n".join(parts)
