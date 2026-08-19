@@ -190,6 +190,29 @@ def load_topic_map() -> dict[str, str]:
     return {row["id"]: row["file"] for row in rows}
 
 
+def escape_table_cell(text: str) -> str:
+    """Escape pipe characters in a markdown table cell."""
+    return text.replace("|", "\\|")
+
+
+def fence_for_content(content: str) -> str:
+    """Return a code fence marker that won't be prematurely closed by the content.
+
+    Finds the longest run of consecutive backticks in the content and returns
+    a fence marker with at least one more backtick, minimum three.
+    """
+    max_run = 0
+    current_run = 0
+    for char in content:
+        if char == "`":
+            current_run += 1
+            max_run = max(max_run, current_run)
+        else:
+            current_run = 0
+    fence_length = max(3, max_run + 1)
+    return "`" * fence_length
+
+
 def diff_excerpt(previous_text: str, current_text: str) -> str:
     lines = list(
         difflib.unified_diff(
@@ -231,20 +254,22 @@ def render_issue_body(changes, topic_map, previous_commit, current_commit) -> st
         for section, _ in changes.changed:
             target = topic_map.get(section.id)
             cell = f"`google cpp style guide/{target}`" if target else "(매핑 없음)"
-            out.append(f"| `{section.id}` | {section.title} | {cell} |")
+            out.append(f"| `{section.id}` | {escape_table_cell(section.title)} | {cell} |")
         out += ["", "### 할 일", ""]
         for section, _ in changes.changed:
             target = topic_map.get(section.id, "(매핑 없음)")
             out.append(f"- [ ] `google cpp style guide/{target}`")
         out += ["", "### 변경 내용", ""]
         for section, previous_text in changes.changed:
+            excerpt = diff_excerpt(previous_text, section.text)
+            fence = fence_for_content(excerpt)
             out += [
                 "<details>",
-                f"<summary>{section.title} (<code>{section.id}</code>)</summary>",
+                f"<summary>`{section.title}` (<code>{section.id}</code>)</summary>",
                 "",
-                "```diff",
-                diff_excerpt(previous_text, section.text),
-                "```",
+                f"{fence}diff",
+                excerpt,
+                fence,
                 "",
                 "</details>",
                 "",

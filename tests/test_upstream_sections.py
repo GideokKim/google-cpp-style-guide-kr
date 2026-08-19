@@ -262,6 +262,70 @@ class RenderTest(unittest.TestCase):
         self.assertLessEqual(len(excerpt.splitlines()), us.DIFF_LIMIT + 1)
         self.assertIn("생략", excerpt)
 
+    def test_section_title_with_pipe_escapes_in_table_row(self):
+        current = us.split_sections(build_document([
+            (3, "Casting", "Casting | Table", "<p>new content</p>"),
+        ]))
+        previous = {"Casting": us.normalize("<p>old content</p>")}
+        changes = us.compare(current, previous)
+
+        body = us.render_issue_body(changes, {"Casting": "casting.md"}, None, None)
+
+        # The table cell should have the pipe escaped, and the structural separators
+        # should still number 2 (for a 3-column table)
+        table_line = [line for line in body.splitlines()
+                      if "Casting" in line and "casting.md" in line][0]
+        structural_separators = table_line.count(" | ")
+        self.assertEqual(structural_separators, 2)
+        self.assertIn("\\|", table_line)
+
+    def test_section_title_with_angle_brackets_escapes_in_summary(self):
+        # Use HTML entities so angle brackets survive parsing
+        current = us.split_sections(build_document([
+            (3, "Template", "Template &lt;T&gt;", "<p>new code</p>"),
+        ]))
+        previous = {"Template": us.normalize("<p>old code</p>")}
+        changes = us.compare(current, previous)
+
+        body = us.render_issue_body(changes, {}, None, None)
+
+        # The title should be wrapped in backticks in the summary
+        self.assertIn("`Template <T>`", body)
+        # Ensure there's no raw unescaped angle bracket that would break HTML
+        self.assertNotIn("<summary>Template <T>", body)
+
+    def test_diff_excerpt_with_backticks_uses_safe_fence(self):
+        before = "code with ``` marker"
+        after = "different ``` marker"
+
+        excerpt = us.diff_excerpt(before, after)
+        fence = us.fence_for_content(excerpt)
+
+        # Fence should be at least 4 backticks since excerpt contains 3
+        self.assertGreaterEqual(len(fence), 4)
+        # Content should survive unchanged within the fence
+        wrapped = f"{fence}diff\n{excerpt}\n{fence}"
+        self.assertIn("```", wrapped)
+
+    def test_render_body_with_added_removed_but_no_changed(self):
+        section = us.Section(
+            id="New_Section",
+            level=3,
+            title="New Section",
+            text="new content"
+        )
+        changes = us.Changes(changed=[], added=[section], removed=["Old_Section"])
+
+        body = us.render_issue_body(changes, {}, None, None)
+
+        # Should not include the "내용이 바뀐 섹션" heading
+        self.assertNotIn("내용이 바뀐 섹션", body)
+        # Should include the "섹션 구성 변경" block
+        self.assertIn("섹션 구성 변경", body)
+        # Should list both added and removed
+        self.assertIn("New_Section", body)
+        self.assertIn("Old_Section", body)
+
 
 if __name__ == "__main__":
     unittest.main()
