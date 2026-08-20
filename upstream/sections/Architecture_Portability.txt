@@ -1,0 +1,6 @@
+Write architecture-portable code. Do not rely on CPU features specific to a single processor. When printing values, use type-safe numeric formatting libraries like absl::StrCat, absl::Substitute, absl::StrFormat, or std::ostream instead of the printf family of functions. When moving structured data into or out of your process, encode it using a serialization library like Protocol Buffers rather than copying the in-memory representation around. If you need to work with memory addresses as integers, store them in uintptr_ts rather than uint32_ts or uint64_ts. Use braced-initialization as needed to create 64-bit constants. For example:
+<pre>
+int64_t my_value{0x123456789};
+uint64_t my_mask{uint64_t{3} << 48};
+</pre>
+Use portable floating point types; avoid long double. Use portable integer types; avoid short, long, and long long.

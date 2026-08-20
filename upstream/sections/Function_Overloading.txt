@@ -1,0 +1,9 @@
+Use overloaded functions (including constructors) only if a reader looking at a call site can get a good idea of what is happening without having to first figure out exactly which overload is being called. You may write a function that takes a const std::string& and overload it with another that takes const char*. However, in this case consider std::string_view instead.
+<pre>
+class MyClass {
+ public:
+  void Analyze(const std::string& text);
+  void Analyze(const char* text, size_t textlen);
+};
+</pre>
+Overloading can make code more intuitive by allowing an identically-named function to take different arguments. It may be necessary for templatized code, and it can be convenient for Visitors. Overloading based on const or ref qualification may make utility code more usable, more efficient, or both. See TotW #148 for more. If a function is overloaded by the argument types alone, a reader may have to understand C++'s complex matching rules in order to tell what's going on. Also many people are confused by the semantics of inheritance if a derived class overrides only some of the variants of a function. You may overload a function when there are no semantic differences between variants. These overloads may vary in types, qualifiers, or argument count. However, a reader of such a call must not need to know which member of the overload set is chosen, only that something from the set is being called. To reflect this unified design, prefer a single, comprehensive "umbrella" comment that documents the entire overload set and is placed before the first declaration. Where a reader might have difficulty connecting the umbrella comment to a specific overload, it's okay to have a comment for specific overloads.

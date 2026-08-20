@@ -1,0 +1,60 @@
+Objects with static storage duration are forbidden unless they are trivially destructible. Informally this means that the destructor does not do anything, even taking member and base destructors into account. More formally it means that the type has no user-defined or virtual destructor and that all bases and non-static members are trivially destructible. Static function-local variables may use dynamic initialization. Use of dynamic initialization for static class member variables or variables at namespace scope is discouraged, but allowed in limited circumstances; see below for details. As a rule of thumb: a global variable satisfies these requirements if its declaration, considered in isolation, could be constexpr. Every object has a storage duration , which correlates with its lifetime. Objects with static storage duration live from the point of their initialization until the end of the program. Such objects appear as variables at namespace scope ("global variables"), as static data members of classes, or as function-local variables that are declared with the static specifier. Function-local static variables are initialized when control first passes through their declaration; all other objects with static storage duration are initialized as part of program start-up. All objects with static storage duration are destroyed at program exit (which happens before unjoined threads are terminated). Initialization may be dynamic , which means that something non-trivial happens during initialization. (For example, consider a constructor that allocates memory, or a variable that is initialized with the current process ID.) The other kind of initialization is static initialization. The two aren't quite opposites, though: static initialization always happens to objects with static storage duration (initializing the object either to a given constant or to a representation consisting of all bytes set to zero), whereas dynamic initialization happens after that, if required. Global and static variables are very useful for a large number of applications: named constants, auxiliary data structures internal to some translation unit, command-line flags, logging, registration mechanisms, background infrastructure, etc. Global and static variables that use dynamic initialization or have non-trivial destructors create complexity that can easily lead to hard-to-find bugs. Dynamic initialization is not ordered across translation units, and neither is destruction (except that destruction happens in reverse order of initialization). When one initialization refers to another variable with static storage duration, it is possible that this causes an object to be accessed before its lifetime has begun (or after its lifetime has ended). Moreover, when a program starts threads that are not joined at exit, those threads may attempt to access objects after their lifetime has ended if their destructor has already run. Decision on destruction When destructors are trivial, their execution is not subject to ordering at all (they are effectively not "run"); otherwise we are exposed to the risk of accessing objects after the end of their lifetime. Therefore, we only allow objects with static storage duration if they are trivially destructible. Fundamental types (like pointers and int) are trivially destructible, as are arrays of trivially destructible types. Note that variables marked with constexpr are trivially destructible.
+<pre>
+const int kNum = 10;  // Allowed
+
+struct X { int n; };
+const X kX[] = {{1}, {2}, {3}};  // Allowed
+
+void foo() {
+  static const char* const kMessages[] = {"hello", "world"};  // Allowed
+}
+
+// Allowed: constexpr guarantees trivial destructor.
+constexpr std::array<int, 3> kArray = {1, 2, 3};
+</pre>
+<pre>
+// bad: non-trivial destructor
+const std::string kFoo = "foo";
+
+// Bad for the same reason, even though kBar is a reference (the
+// rule also applies to lifetime-extended temporary objects).
+const std::string& kBar = StrCat("a", "b", "c");
+
+void bar() {
+  // Bad: non-trivial destructor.
+  static std::map<int, int> kData = {{1, 0}, {2, 0}, {3, 0}};
+}
+</pre>
+Note that references are not objects, and thus they are not subject to the constraints on destructibility. The constraint on dynamic initialization still applies, though. In particular, a function-local static reference of the form static T& t = *new T; is allowed. Decision on initialization Initialization is a more complex topic. This is because we must not only consider whether class constructors execute, but we must also consider the evaluation of the initializer:
+<pre>
+int n = 5;    // Fine
+int m = f();  // ? (Depends on f)
+Foo x;        // ? (Depends on Foo::Foo)
+Bar y = g();  // ? (Depends on g and on Bar::Bar)
+</pre>
+All but the first statement expose us to indeterminate initialization ordering. The concept we are looking for is called constant initialization in the formal language of the C++ standard. It means that the initializing expression is a constant expression, and if the object is initialized by a constructor call, then the constructor must be specified as constexpr, too:
+<pre>
+struct Foo { constexpr Foo(int) {} };
+
+int n = 5;  // Fine, 5 is a constant expression.
+Foo x(2);   // Fine, 2 is a constant expression and the chosen constructor is constexpr.
+Foo a[] = { Foo(1), Foo(2), Foo(3) };  // Fine
+</pre>
+Constant initialization is always allowed. Constant initialization of static storage duration variables should be marked with constexpr or constinit. Any non-local static storage duration variable that is not so marked should be presumed to have dynamic initialization, and reviewed very carefully. By contrast, the following initializations are problematic:
+<pre>
+// Some declarations used below.
+time_t time(time_t*);      // Not constexpr!
+int f();                   // Not constexpr!
+struct Bar { Bar() {} };
+
+// Problematic initializations.
+time_t m = time(nullptr);  // Initializing expression not a constant expression.
+Foo y(f());                // Ditto
+Bar b;                     // Chosen constructor Bar::Bar() not constexpr.
+</pre>
+Dynamic initialization of nonlocal variables is discouraged, and in general it is forbidden. However, we do permit it if no aspect of the program depends on the sequencing of this initialization with respect to all other initializations. Under those restrictions, the ordering of the initialization does not make an observable difference. For example:
+<pre>
+int p = getpid();  // Allowed, as long as no other static variable
+                   // uses p in its own initialization.
+</pre>
+Dynamic initialization of static local variables is allowed (and common). Common patterns Global strings: if you require a named global or static string constant, consider using a constexpr variable of string_view, character array, or character pointer, pointing to a string literal. String literals have static storage duration already and are usually sufficient. See TotW #140. Maps, sets, and other dynamic containers: if you require a static, fixed collection, such as a set to search against or a lookup table, you cannot use the dynamic containers from the standard library as a static variable, since they have non-trivial destructors. Instead, consider a simple array of trivial types, e.g., an array of arrays of ints (for a "map from int to int"), or an array of pairs (e.g., pairs of int and const char*). For small collections, linear search is entirely sufficient (and efficient, due to memory locality); consider using the facilities from absl/algorithm/container.h for the standard operations. If necessary, keep the collection in sorted order and use a binary search algorithm. If you do really prefer a dynamic container from the standard library, consider using a function-local static pointer, as described below . Smart pointers (std::unique_ptr, std::shared_ptr): smart pointers execute cleanup during destruction and are therefore forbidden. Consider whether your use case fits into one of the other patterns described in this section. One simple solution is to use a plain pointer to a dynamically allocated object and never delete it (see last item). Static variables of custom types: if you require static, constant data of a type that you need to define yourself, give the type a trivial destructor and a constexpr constructor. If all else fails, you can create an object dynamically and never delete it by using a function-local static pointer or reference (e.g., static const auto& impl = *new T(args...);).

@@ -1,0 +1,20 @@
+Avoid using run-time type information (RTTI). RTTI allows a programmer to query the C++ class of an object at run-time. This is done by use of typeid or dynamic_cast. The standard alternatives to RTTI (described below) require modification or redesign of the class hierarchy in question. Sometimes such modifications are infeasible or undesirable, particularly in widely-used or mature code. RTTI can be useful in some unit tests. For example, it is useful in tests of factory classes where the test has to verify that a newly created object has the expected dynamic type. It is also useful in managing the relationship between objects and their mocks. RTTI is useful when considering multiple abstract objects. Consider
+<pre>
+bool Base::Equal(Base* other) = 0;
+bool Derived::Equal(Base* other) {
+  Derived* that = dynamic_cast<Derived*>(other);
+  if (that == nullptr)
+    return false;
+  ...
+}
+</pre>
+Querying the type of an object at run-time frequently means a design problem. Needing to know the type of an object at runtime is often an indication that the design of your class hierarchy is flawed. Undisciplined use of RTTI makes code hard to maintain. It can lead to type-based decision trees or switch statements scattered throughout the code, all of which must be examined when making further changes. RTTI has legitimate uses but is prone to abuse, so you must be careful when using it. You may use it freely in unit tests, but avoid it when possible in other code. In particular, think twice before using RTTI in new code. If you find yourself needing to write code that behaves differently based on the class of an object, consider one of the following alternatives to querying the type: Virtual methods are the preferred way of executing different code paths depending on a specific subclass type. This puts the work within the object itself. If the work belongs outside the object and instead in some processing code, consider a double-dispatch solution, such as the Visitor design pattern. This allows a facility outside the object itself to determine the type of class using the built-in type system. When the logic of a program guarantees that a given instance of a base class is in fact an instance of a particular derived class, then a dynamic_cast may be used freely on the object. Usually absl::down_cast provides an even better alternative. Decision trees based on type are a strong indication that your code is on the wrong track.
+<pre>
+if (typeid(*data) == typeid(D1)) {
+  ...
+} else if (typeid(*data) == typeid(D2)) {
+  ...
+} else if (typeid(*data) == typeid(D3)) {
+...
+</pre>
+Code such as this usually breaks when additional subclasses are added to the class hierarchy. Moreover, when properties of a subclass change, it is difficult to find and modify all the affected code segments. Do not hand-implement an RTTI-like workaround. The arguments against RTTI apply just as much to workarounds like class hierarchies with type tags. Moreover, workarounds disguise your true intent.

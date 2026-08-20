@@ -1,0 +1,33 @@
+Public aliases are for the benefit of an API's user, and should be clearly documented. There are several ways to create names that are aliases of other entities:
+<pre>
+using Bar = Foo;
+typedef Foo Bar;  // But prefer `using` in C++ code.
+using ::other_namespace::Foo;
+using enum MyEnumType;  // Creates aliases for all enumerators in MyEnumType.
+</pre>
+In new code, using is preferable to typedef, because it provides a more consistent syntax with the rest of C++ and works with templates. Like other declarations, aliases declared in a header file are part of that header's public API unless they're in a function definition, in the private portion of a class, or in an explicitly-marked internal namespace. Aliases in such areas or in .cc files are implementation details (because client code can't refer to them), and are not restricted by this rule. Aliases can improve readability by simplifying a long or complicated name. Aliases can reduce duplication by naming in one place a type used repeatedly in an API, which might make it easier to change the type later. When placed in a header where client code can refer to them, aliases increase the number of entities in that header's API, increasing its complexity. Clients can easily rely on unintended details of public aliases, making changes difficult. It can be tempting to create a public alias that is only intended for use in the implementation, without considering its impact on the API, or on maintainability. Aliases can create risk of name collisions. Aliases can reduce readability by giving a familiar construct an unfamiliar name. Type aliases can create an unclear API contract: it is unclear whether the alias is guaranteed to be identical to the type it aliases, to have the same API, or only to be usable in specified narrow ways. Don't put an alias in your public API just to save typing in the implementation; do so only if you intend it to be used by your clients. When defining a public alias, document the intent of the new name, including whether it is guaranteed to always be the same as the type it's currently aliased to, or whether a more limited compatibility is intended. This lets the user know whether they can treat the types as substitutable or whether more specific rules must be followed, and can help the implementation retain some degree of freedom to change the alias. Don't put namespace aliases in your public API. (See also Namespaces.) For example, these aliases document how they are intended to be used in client code:
+<pre>
+namespace mynamespace {
+// Used to store field measurements. DataPoint may change from Bar* to some internal type.
+// Client code should treat it as an opaque pointer.
+using DataPoint = ::foo::Bar*;
+
+// A set of measurements. Just an alias for user convenience.
+using TimeSeries = std::unordered_set<DataPoint, std::hash<DataPoint>, DataPointComparator>;
+}  // namespace mynamespace
+</pre>
+These aliases don't document intended use, and half of them aren't meant for client use:
+<pre>
+namespace mynamespace {
+// Bad: none of these say how they should be used.
+using DataPoint = ::foo::Bar*;
+using ::std::unordered_set;  // Bad: just for local convenience
+using ::std::hash;           // Bad: just for local convenience
+typedef unordered_set<DataPoint, hash<DataPoint>, DataPointComparator> TimeSeries;
+}  // namespace mynamespace
+</pre>
+However, local convenience aliases are fine in function definitions, private sections of classes, explicitly-marked internal namespaces, and in .cc files:
+<pre>
+// In a .cc file
+using ::foo::Bar;
+</pre>

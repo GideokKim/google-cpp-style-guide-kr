@@ -1,0 +1,14 @@
+Format parameters and bodies as for any other function, and capture lists like other comma-separated lists. For by-reference captures, do not leave a space between the ampersand (&) and the variable name.
+<pre>
+int x = 0;
+auto x_plus_n = [&x](int n) -> int { return x + n; }
+</pre>
+Short lambdas may be written inline as function arguments.
+<pre>
+absl::flat_hash_set<int> to_remove = {7, 8, 9};
+std::vector<int> digits = {3, 9, 1, 8, 4, 7, 1};
+digits.erase(std::remove_if(digits.begin(), digits.end(), [&to_remove](int i) {
+               return to_remove.contains(i);
+             }),
+             digits.end());
+</pre>

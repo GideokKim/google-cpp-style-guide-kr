@@ -1,0 +1,21 @@
+The contents of namespaces are not indented. Namespaces do not add an extra level of indentation. For example, use:
+<pre>
+namespace {
+
+void foo() {  // Correct.  No extra indentation within namespace.
+  ...
+}
+
+}  // namespace
+</pre>
+Do not indent within a namespace:
+<pre>
+namespace {
+
+  // Wrong!  Indented when it should not be.
+  void foo() {
+    ...
+  }
+
+}  // namespace
+</pre>

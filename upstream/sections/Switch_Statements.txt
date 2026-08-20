@@ -1,0 +1,36 @@
+If not conditional on an enumerated value, switch statements should always have a default case (in the case of an enumerated value, the compiler will warn you if any values are not handled). If the default case should never execute, treat this as an error. For example:
+<pre>
+switch (var) {
+  case 0: {
+    ...
+    break;
+  }
+  case 1: {
+    ...
+    break;
+  }
+  default: {
+    LOG(FATAL) << "Invalid value in switch statement: " << var;
+  }
+}
+</pre>
+Fall-through from one case label to another must be annotated using the [[fallthrough]]; attribute. [[fallthrough]]; should be placed at a point of execution where a fall-through to the next case label occurs. A common exception is consecutive case labels without intervening code, in which case no annotation is needed.
+<pre>
+switch (x) {
+  case 41:  // No annotation needed here.
+  case 43:
+    if (dont_be_picky) {
+      // Use this instead of or along with annotations in comments.
+      [[fallthrough]];
+    } else {
+      CloseButNoCigar();
+      break;
+    }
+  case 42:
+    DoSomethingSpecial();
+    [[fallthrough]];
+  default:
+    DoSomethingGeneric();
+    break;
+}
+</pre>

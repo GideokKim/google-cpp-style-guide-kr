@@ -1,0 +1,798 @@
+{
+  "source": "https://raw.githubusercontent.com/google/styleguide/gh-pages/cppguide.html",
+  "upstream_commit": "1809c769de31ba388c755ad15dd057a9ba8531fd",
+  "captured_at": "2026-08-20T11:53:11Z",
+  "sections": [
+    {
+      "id": "Background",
+      "level": 2,
+      "title": "Background",
+      "file": "Background.txt",
+      "sha256": "8ba46445bfa002fa0ddb77e9553d79892b8d96f73b9623e531a64317e89ed97b"
+    },
+    {
+      "id": "Goals",
+      "level": 3,
+      "title": "Goals of the Style Guide",
+      "file": "Goals.txt",
+      "sha256": "2564908f75fa67db8920a5d04334da468bdd975b3f31ba7d9994556086225d39"
+    },
+    {
+      "id": "C++_Version",
+      "level": 2,
+      "title": "C++ Version",
+      "file": "C___Version.txt",
+      "sha256": "2ecfe4fab85a26bdfd4e5fe17dd9c71542fac91599c9a708a44a06507b13a6aa"
+    },
+    {
+      "id": "Header_Files",
+      "level": 2,
+      "title": "Header Files",
+      "file": "Header_Files.txt",
+      "sha256": "37eb35694df90b41fd2d03ffeeec515c4583b6c19e4bdddff1804ae3f5b9eb02"
+    },
+    {
+      "id": "Self_contained_Headers",
+      "level": 3,
+      "title": "Self-contained Headers",
+      "file": "Self_contained_Headers.txt",
+      "sha256": "d4185550ee6d73b62ac7bc0c7a7f10c79d6a331900c97279e165a8becf741930"
+    },
+    {
+      "id": "The__define_Guard",
+      "level": 3,
+      "title": "The #define Guard",
+      "file": "The__define_Guard.txt",
+      "sha256": "2143daee14b97fcb949a5499c817badb6638a8206101f4730ece48931a8796b6"
+    },
+    {
+      "id": "Include_What_You_Use",
+      "level": 3,
+      "title": "Include What You Use",
+      "file": "Include_What_You_Use.txt",
+      "sha256": "b1590d028394fb11a62c40762a9496effe39179f716b39932ba10dce0e12f116"
+    },
+    {
+      "id": "Forward_Declarations",
+      "level": 3,
+      "title": "Forward Declarations",
+      "file": "Forward_Declarations.txt",
+      "sha256": "f766dc4d064410a34132372d88b08e523eaad3948a21e6d914270598d44610f3"
+    },
+    {
+      "id": "Defining_Functions_in_Header_Files",
+      "level": 3,
+      "title": "Defining Functions in Header Files",
+      "file": "Defining_Functions_in_Header_Files.txt",
+      "sha256": "6a81d7a96f72e7e268f71abe8bdae33435ae36ed0c0c2a3664104c3835d8f2de"
+    },
+    {
+      "id": "Names_and_Order_of_Includes",
+      "level": 3,
+      "title": "Names and Order of Includes",
+      "file": "Names_and_Order_of_Includes.txt",
+      "sha256": "7b9e87777d25bef9446687480abbed0f4ef967fbb7229a65b7040c56f432efce"
+    },
+    {
+      "id": "Scoping",
+      "level": 2,
+      "title": "Scoping",
+      "file": "Scoping.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "Namespaces",
+      "level": 3,
+      "title": "Namespaces",
+      "file": "Namespaces.txt",
+      "sha256": "7de36dddde08e9245e17cb93c99855acd8ccc9aed19d415681d8a3aa0fbf752b"
+    },
+    {
+      "id": "Internal_Linkage",
+      "level": 3,
+      "title": "Internal Linkage",
+      "file": "Internal_Linkage.txt",
+      "sha256": "b0d255c54386692171f2383b8f58d7a4e52734e9eba83aa7c3fa5561f78eb330"
+    },
+    {
+      "id": "Nonmember,_Static_Member,_and_Global_Functions",
+      "level": 3,
+      "title": "Nonmember, Static Member, and Global Functions",
+      "file": "Nonmember__Static_Member__and_Global_Functions.txt",
+      "sha256": "0ecc736d8588739c9b93f4a9d52c495451de10dd48d6b08d7b7d4e096b45b149"
+    },
+    {
+      "id": "Local_Variables",
+      "level": 3,
+      "title": "Local Variables",
+      "file": "Local_Variables.txt",
+      "sha256": "6cb60edb56ecb225c3bdfcac71fbb20e16bc2efebd2bb3c117d79bc6e555b901"
+    },
+    {
+      "id": "Static_and_Global_Variables",
+      "level": 3,
+      "title": "Static and Global Variables",
+      "file": "Static_and_Global_Variables.txt",
+      "sha256": "e802dd2c3d7fd51cc73ae0ae87916293bbc56c5f5a6a17953e76432693e66a8b"
+    },
+    {
+      "id": "thread_local",
+      "level": 3,
+      "title": "thread_local Variables",
+      "file": "thread_local.txt",
+      "sha256": "140e04f94cba5c0b0a2fd260438ad8951ebe720a8e3bb452847368d875472d42"
+    },
+    {
+      "id": "Classes",
+      "level": 2,
+      "title": "Classes",
+      "file": "Classes.txt",
+      "sha256": "5ea6aa64974edff598fbe90b2f2ab638e1a9f3211249c64a8574f80cdaeb3168"
+    },
+    {
+      "id": "Doing_Work_in_Constructors",
+      "level": 3,
+      "title": "Doing Work in Constructors",
+      "file": "Doing_Work_in_Constructors.txt",
+      "sha256": "bcb82451e15321ff99c23c48bbfc3f4bc283ad3d40a6ac1bbcf9d1e63707abca"
+    },
+    {
+      "id": "Implicit_Conversions",
+      "level": 3,
+      "title": "Implicit Conversions",
+      "file": "Implicit_Conversions.txt",
+      "sha256": "01ed7f4ff9994973010616dacb57dc58c7368c65fa75abe28b2dff9f10845f8e"
+    },
+    {
+      "id": "Copyable_Movable_Types",
+      "level": 3,
+      "title": "Copyable and Movable Types",
+      "file": "Copyable_Movable_Types.txt",
+      "sha256": "53e89ea1b368174c1baeee63a7714671cf71a645ded857c541671dcb443ba773"
+    },
+    {
+      "id": "Structs_vs._Classes",
+      "level": 3,
+      "title": "Structs vs. Classes",
+      "file": "Structs_vs._Classes.txt",
+      "sha256": "a07810130031b0ee28e2edbc587706423c94496ecca1b75c4c6a472cab6aefbb"
+    },
+    {
+      "id": "Structs_vs._Tuples",
+      "level": 3,
+      "title": "Structs vs. Pairs and Tuples",
+      "file": "Structs_vs._Tuples.txt",
+      "sha256": "6c409618ff8f0fea5d9e294b4c9a811c3df8975625aa311690b8b6e7e6235419"
+    },
+    {
+      "id": "Inheritance",
+      "level": 3,
+      "title": "Inheritance",
+      "file": "Inheritance.txt",
+      "sha256": "e2e32ee3f62ea5f2c6b1065d5896d31863c81916c0ea78ea7d69d8fff9a45342"
+    },
+    {
+      "id": "Operator_Overloading",
+      "level": 3,
+      "title": "Operator Overloading",
+      "file": "Operator_Overloading.txt",
+      "sha256": "ff1b043f5097c7caa9371f5ab1c74bd3d1b03fb8c04679e8a2a38f57fcb21efc"
+    },
+    {
+      "id": "Access_Control",
+      "level": 3,
+      "title": "Access Control",
+      "file": "Access_Control.txt",
+      "sha256": "7121f6b80eb8be948ce5d5dbae1dd18a9d79a7b9d30f21e19dfe38735e90d67d"
+    },
+    {
+      "id": "Declaration_Order",
+      "level": 3,
+      "title": "Declaration Order",
+      "file": "Declaration_Order.txt",
+      "sha256": "e72a858e448bb8467153dd1b115840ac0c491beeddfd815708dbc701471016c6"
+    },
+    {
+      "id": "Functions",
+      "level": 2,
+      "title": "Functions",
+      "file": "Functions.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "Inputs_and_Outputs",
+      "level": 3,
+      "title": "Inputs and Outputs",
+      "file": "Inputs_and_Outputs.txt",
+      "sha256": "b5e573fd4e2c2d1cb60ba5e27c2d2b6d70d5119539875b70b089faa390dae75c"
+    },
+    {
+      "id": "Write_Short_Functions",
+      "level": 3,
+      "title": "Write Short Functions",
+      "file": "Write_Short_Functions.txt",
+      "sha256": "006fa99935fdfd09df5ff3ee98d574befd68d8c2f544f2f8c9d1e147006dcbad"
+    },
+    {
+      "id": "Function_Overloading",
+      "level": 3,
+      "title": "Function Overloading",
+      "file": "Function_Overloading.txt",
+      "sha256": "cc18399a4a6eba24c1cb12a4659af8a5b9ccfbab4486aea41a438d2157c61500"
+    },
+    {
+      "id": "Default_Arguments",
+      "level": 3,
+      "title": "Default Arguments",
+      "file": "Default_Arguments.txt",
+      "sha256": "228445668f2c9883d993dde5e13348569cc47c5ad08d3ee280a98ed16133ec69"
+    },
+    {
+      "id": "trailing_return",
+      "level": 3,
+      "title": "Trailing Return Type Syntax",
+      "file": "trailing_return.txt",
+      "sha256": "0deaaaf4916e22faa727a32326b65479aa433912459a6db8574482e176139d7c"
+    },
+    {
+      "id": "Google-Specific_Magic",
+      "level": 2,
+      "title": "Google-Specific Magic",
+      "file": "Google-Specific_Magic.txt",
+      "sha256": "e83fb5ae34cfdbe72203d61d6febb8524c446b33b584d4a38f01ec84be9e8f73"
+    },
+    {
+      "id": "cpplint",
+      "level": 3,
+      "title": "cpplint",
+      "file": "cpplint.txt",
+      "sha256": "b3d2bf680f2d04a741dce0cfd2c6f1ced1bb2d2650235aa568dc735f37b13288"
+    },
+    {
+      "id": "Other_C++_Features",
+      "level": 2,
+      "title": "Other C++ Features",
+      "file": "Other_C___Features.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "Ownership_and_Smart_Pointers",
+      "level": 3,
+      "title": "Ownership and Smart Pointers",
+      "file": "Ownership_and_Smart_Pointers.txt",
+      "sha256": "2cab3a2e0bdb86ea37269bc0c6391f6b3407c880ec70a1bf2510cf5489219c18"
+    },
+    {
+      "id": "Rvalue_references",
+      "level": 3,
+      "title": "Rvalue References",
+      "file": "Rvalue_references.txt",
+      "sha256": "75a0d2c5fe8ff4d375f7a5ea1b373fb48fceb1885a1cca0c7e237b9b2efbe993"
+    },
+    {
+      "id": "Friends",
+      "level": 3,
+      "title": "Friends",
+      "file": "Friends.txt",
+      "sha256": "4a4aa90cb2c926376857666f4c76feb41057ddf2df522597e1d5120b1e5575af"
+    },
+    {
+      "id": "Exceptions",
+      "level": 3,
+      "title": "Exceptions",
+      "file": "Exceptions.txt",
+      "sha256": "30d8a15252d87989b3be0885592c7e4daf9c32439efb002cea7f419636ea1ddf"
+    },
+    {
+      "id": "noexcept",
+      "level": 3,
+      "title": "noexcept",
+      "file": "noexcept.txt",
+      "sha256": "8fe5926ac1afa7a7a3570acb9ee468747a2e64ae1cb879c001e477f5c98df20a"
+    },
+    {
+      "id": "Run-Time_Type_Information__RTTI_",
+      "level": 3,
+      "title": "Run-Time Type Information (RTTI)",
+      "file": "Run-Time_Type_Information__RTTI_.txt",
+      "sha256": "53521ac9132468c16ac4bf5df1a68275468a988b6ece2caad69f2716bbe381b2"
+    },
+    {
+      "id": "Casting",
+      "level": 3,
+      "title": "Casting",
+      "file": "Casting.txt",
+      "sha256": "5c7dfb20805d5ffc6b575ed31fcdbd96143419b1069ecd12158b081529c033d2"
+    },
+    {
+      "id": "Streams",
+      "level": 3,
+      "title": "Streams",
+      "file": "Streams.txt",
+      "sha256": "0a4a264d7384fa1c39a06eafdd465d26f0c3b8e67d4241414d3075a419e7bb87"
+    },
+    {
+      "id": "Preincrement_and_Predecrement",
+      "level": 3,
+      "title": "Preincrement and Predecrement",
+      "file": "Preincrement_and_Predecrement.txt",
+      "sha256": "5fc6409e9234dae45eb54ee9e3fd2ef22b18fb0402932c006ae3b8553173a6f9"
+    },
+    {
+      "id": "Use_of_const",
+      "level": 3,
+      "title": "Use of const",
+      "file": "Use_of_const.txt",
+      "sha256": "292047cc9facfc16ae8424eeb6e92133d5b1d2d430ac76f81c3c1a98b21c1710"
+    },
+    {
+      "id": "Use_of_constexpr",
+      "level": 3,
+      "title": "Use of constexpr, constinit, and consteval",
+      "file": "Use_of_constexpr.txt",
+      "sha256": "89c35f4475189a053e89bed81d313dc97432de94729c9c9295500f75aa3cd48b"
+    },
+    {
+      "id": "Integer_Types",
+      "level": 3,
+      "title": "Integer Types",
+      "file": "Integer_Types.txt",
+      "sha256": "fee03bfd45caa5a8152b6adb231ad765856a8a1245915e253c0332b3ad8379ec"
+    },
+    {
+      "id": "Floating-Point_Types",
+      "level": 3,
+      "title": "Floating-Point Types",
+      "file": "Floating-Point_Types.txt",
+      "sha256": "a74720a420dc753602cf5419e5c5b6925432734d45758fdb243dbb35dace8cd4"
+    },
+    {
+      "id": "Architecture_Portability",
+      "level": 3,
+      "title": "Architecture Portability",
+      "file": "Architecture_Portability.txt",
+      "sha256": "5284e92c6372d628743f7e94606ddf108aeee4b59f3a9d5337530496e416a99f"
+    },
+    {
+      "id": "Preprocessor_Macros",
+      "level": 3,
+      "title": "Preprocessor Macros",
+      "file": "Preprocessor_Macros.txt",
+      "sha256": "f0517299b48dcc0355b5d5e994d3450a161ff256178848a1df9c6e3486174ad6"
+    },
+    {
+      "id": "0_and_nullptr/NULL",
+      "level": 3,
+      "title": "0 and nullptr/NULL",
+      "file": "0_and_nullptr_NULL.txt",
+      "sha256": "7696cf1d14618ea234fa0e17ee6405912797707975375377608bde1c548c959f"
+    },
+    {
+      "id": "sizeof",
+      "level": 3,
+      "title": "sizeof",
+      "file": "sizeof.txt",
+      "sha256": "12352e6931b4c0ced9fe03cd61bf86d5c6d9f49d9ddcd5f01037d460b351fa64"
+    },
+    {
+      "id": "Type_deduction",
+      "level": 3,
+      "title": "Type Deduction (including auto)",
+      "file": "Type_deduction.txt",
+      "sha256": "325ca38745f06ff039280183297209e05e0ba54f53452a11b12513e0226804cf"
+    },
+    {
+      "id": "CTAD",
+      "level": 3,
+      "title": "Class Template Argument Deduction",
+      "file": "CTAD.txt",
+      "sha256": "843fbbc491ee56de1dc8730679880b38fad6ceaf9f1f485dbbcae25fdf540454"
+    },
+    {
+      "id": "Designated_initializers",
+      "level": 3,
+      "title": "Designated Initializers",
+      "file": "Designated_initializers.txt",
+      "sha256": "c58a681561120319a665cb0ac41fc31841f7fd856d964c3b865fb5efc1b4057c"
+    },
+    {
+      "id": "Lambda_expressions",
+      "level": 3,
+      "title": "Lambda Expressions",
+      "file": "Lambda_expressions.txt",
+      "sha256": "47cebf0fcc9a1955e32e659743a7ad57d3427818b51ebc30c575a8172847ef0f"
+    },
+    {
+      "id": "Template_metaprogramming",
+      "level": 3,
+      "title": "Template Metaprogramming",
+      "file": "Template_metaprogramming.txt",
+      "sha256": "fd8d629ad96d4428f08fac8c6aef84ff740ddc67a319820ea3fe81353c1077ba"
+    },
+    {
+      "id": "Concepts",
+      "level": 3,
+      "title": "Concepts and Constraints",
+      "file": "Concepts.txt",
+      "sha256": "11dc5eb4a00cdcf86b5b1dde11b323eda17480b71978bae5fa77c5fc1eb80d9c"
+    },
+    {
+      "id": "modules",
+      "level": 3,
+      "title": "C++20 modules",
+      "file": "modules.txt",
+      "sha256": "51449f24cbc3c0ca97f6791dc5a643cffa2495557cc1c5d9c645f8d1ea3961f4"
+    },
+    {
+      "id": "coroutines",
+      "level": 3,
+      "title": "Coroutines",
+      "file": "coroutines.txt",
+      "sha256": "5b29a42484aba15dd8413f0f5f4f6c0e57d8b00f37421b3b5272592a27cdc856"
+    },
+    {
+      "id": "Disallowed_Stdlib",
+      "level": 3,
+      "title": "Disallowed standard library features",
+      "file": "Disallowed_Stdlib.txt",
+      "sha256": "973b3717ba58e5f394a995ae09a039d8d2de03c321417062cda5334b3515331a"
+    },
+    {
+      "id": "Third_party_Libraries",
+      "level": 3,
+      "title": "Third-party Libraries",
+      "file": "Third_party_Libraries.txt",
+      "sha256": "f88a13aaf2232c6ba8cea25611523e87f3e70a50d70c44a21bc5cd47e9916b8f"
+    },
+    {
+      "id": "Nonstandard_Extensions",
+      "level": 3,
+      "title": "Nonstandard Extensions",
+      "file": "Nonstandard_Extensions.txt",
+      "sha256": "ada56fd463cfca10ef400d20b3daed836ceff09bbeb463ab1a00f0abb974cce0"
+    },
+    {
+      "id": "Aliases",
+      "level": 3,
+      "title": "Aliases",
+      "file": "Aliases.txt",
+      "sha256": "d301a41ee16115d13319eb31000a0351526faed199e3354fea8ee5235b7039fa"
+    },
+    {
+      "id": "Switch_Statements",
+      "level": 3,
+      "title": "Switch Statements",
+      "file": "Switch_Statements.txt",
+      "sha256": "8859045c7db5199fac4e00368e92a0239b1eecef2e9355dc9bc07ae5a81a201b"
+    },
+    {
+      "id": "Inclusive_Language",
+      "level": 2,
+      "title": "Inclusive Language",
+      "file": "Inclusive_Language.txt",
+      "sha256": "57927367987842c3ee36addb7bccdc6eb05ea22ebbea7b17b399f99bf5dbc113"
+    },
+    {
+      "id": "Naming",
+      "level": 2,
+      "title": "Naming",
+      "file": "Naming.txt",
+      "sha256": "9df50a80a5c71fb468ce9eb675cffd5122bcaa0cf990f067e523b57a3c62eed6"
+    },
+    {
+      "id": "General_Naming_Rules",
+      "level": 3,
+      "title": "Choosing Names",
+      "file": "General_Naming_Rules.txt",
+      "sha256": "ee6f786bc73e963844374d2dadae927fd41d16365e292e954a3f6faa656d6dd9"
+    },
+    {
+      "id": "File_Names",
+      "level": 3,
+      "title": "File Names",
+      "file": "File_Names.txt",
+      "sha256": "5d44b892c786487361d0ea6b801690d57f23c2739d2651fc86103700bb172f6d"
+    },
+    {
+      "id": "Type_Names",
+      "level": 3,
+      "title": "Type Names",
+      "file": "Type_Names.txt",
+      "sha256": "088819501af92cd663df9258a5e4ed61ce912e42da6be83beb82cef9284f0ffc"
+    },
+    {
+      "id": "Concept_Names",
+      "level": 3,
+      "title": "Concept Names",
+      "file": "Concept_Names.txt",
+      "sha256": "d7bf977951524ca1b2dadced2f83c3592965e5f8ff85379f4fc856899337bf79"
+    },
+    {
+      "id": "Variable_Names",
+      "level": 3,
+      "title": "Variable Names",
+      "file": "Variable_Names.txt",
+      "sha256": "69c16f4581257ce93d9879aea40c2d81ac1a2dfb11eaf0481445469d3dce8871"
+    },
+    {
+      "id": "Constant_Names",
+      "level": 3,
+      "title": "Constant Names",
+      "file": "Constant_Names.txt",
+      "sha256": "ef4e6469cd813c243e882c92e9ecea0c945b65b4a860f59df10b79ef0c01a485"
+    },
+    {
+      "id": "Function_Names",
+      "level": 3,
+      "title": "Function Names",
+      "file": "Function_Names.txt",
+      "sha256": "0193cf7cea50d17b39ec9c86a719ad3b7893ece05a27f474144d0ed29c292a24"
+    },
+    {
+      "id": "Namespace_Names",
+      "level": 3,
+      "title": "Namespace Names",
+      "file": "Namespace_Names.txt",
+      "sha256": "9efece0dee3079f2345f1b48eafd4fae2be46b40bcbf6b1c5febf8c2ab7092d6"
+    },
+    {
+      "id": "Enumerator_Names",
+      "level": 3,
+      "title": "Enumerator Names",
+      "file": "Enumerator_Names.txt",
+      "sha256": "608c88a6e42b0bb75b3b41b44f4d161f660534bf30d01a08868b9f248a3dfc8c"
+    },
+    {
+      "id": "Template_Parameter_Names",
+      "level": 3,
+      "title": "Template Parameter Names",
+      "file": "Template_Parameter_Names.txt",
+      "sha256": "fe3319fcc5aba355ac932a1d20403fdc80f9a540514c667db5d70cf8bd2d3488"
+    },
+    {
+      "id": "Macro_Names",
+      "level": 3,
+      "title": "Macro Names",
+      "file": "Macro_Names.txt",
+      "sha256": "f8fde38c1ec3acf05245da653352c48b9bd4bf8adb4547ad887240e2fdfc0aad"
+    },
+    {
+      "id": "Naming_Aliases",
+      "level": 3,
+      "title": "Aliases",
+      "file": "Naming_Aliases.txt",
+      "sha256": "c0f82f22b63972c9a7a29cf4ea85cf6d98e674da14e63646c20e29433b4c8df6"
+    },
+    {
+      "id": "Exceptions_to_Naming_Rules",
+      "level": 3,
+      "title": "Exceptions to Naming Rules",
+      "file": "Exceptions_to_Naming_Rules.txt",
+      "sha256": "64ec0ade00308e300d1c340d629d6702d3edbe73f60ce4f0569a17f4e086b2fe"
+    },
+    {
+      "id": "Comments",
+      "level": 2,
+      "title": "Comments",
+      "file": "Comments.txt",
+      "sha256": "5feb2fa61f2964303bb5493229c4d43ba255ccd4346a5a19492eb1a66f48d0d0"
+    },
+    {
+      "id": "Comment_Style",
+      "level": 3,
+      "title": "Comment Style",
+      "file": "Comment_Style.txt",
+      "sha256": "deb55e2a4db421d62d81fd46f4de2009d3fc5efee65661b5ff2422daeb0c1fef"
+    },
+    {
+      "id": "File_Comments",
+      "level": 3,
+      "title": "File Comments",
+      "file": "File_Comments.txt",
+      "sha256": "9d3de8d46ff59ff7de93e00871bcafe459743f8f9c9917f616b6617ad963bf9a"
+    },
+    {
+      "id": "Class_Comments",
+      "level": 3,
+      "title": "Struct and Class Comments",
+      "file": "Class_Comments.txt",
+      "sha256": "07b522808310a4d4069a99fb693394508b77830db5af10a911e223ae8b53cf2d"
+    },
+    {
+      "id": "Function_Comments",
+      "level": 3,
+      "title": "Function Comments",
+      "file": "Function_Comments.txt",
+      "sha256": "54d4d005deb84424e7aa06574c6138bcea2a32e9b1be0fbecdd6f5be0542dd66"
+    },
+    {
+      "id": "Variable_Comments",
+      "level": 3,
+      "title": "Variable Comments",
+      "file": "Variable_Comments.txt",
+      "sha256": "2caba4742d25cd8e778417c0094670355dc3843bc240d7ee2e419ea1afd0fe0d"
+    },
+    {
+      "id": "Implementation_Comments",
+      "level": 3,
+      "title": "Implementation Comments",
+      "file": "Implementation_Comments.txt",
+      "sha256": "455c8ff4a06b0dbff20be9bc5801d336a74d5103f439cb6628abc7930e0a6c69"
+    },
+    {
+      "id": "Punctuation_Spelling_and_Grammar",
+      "level": 3,
+      "title": "Punctuation, Spelling, and Grammar",
+      "file": "Punctuation_Spelling_and_Grammar.txt",
+      "sha256": "59d8a924325a43e86bee179aa9370780c70c5067715fdc9c7aacd45cb15d05f5"
+    },
+    {
+      "id": "TODO_Comments",
+      "level": 3,
+      "title": "TODO Comments",
+      "file": "TODO_Comments.txt",
+      "sha256": "77a4a0670eecde684d6929fadc7ea2cab940b5b092ab2f9b765de2190158b729"
+    },
+    {
+      "id": "Formatting",
+      "level": 2,
+      "title": "Formatting",
+      "file": "Formatting.txt",
+      "sha256": "17155f0c42a0c1b95f7f1b40dbae2c8884e708b66b169c868cd9848497b73933"
+    },
+    {
+      "id": "Line_Length",
+      "level": 3,
+      "title": "Line Length",
+      "file": "Line_Length.txt",
+      "sha256": "d45dacd40664b7d60fdd852dc8b73cdecc65ba6b3e92a6b7a121354e856b8d72"
+    },
+    {
+      "id": "Non-ASCII_Characters",
+      "level": 3,
+      "title": "Non-ASCII Characters",
+      "file": "Non-ASCII_Characters.txt",
+      "sha256": "564d6823068e08310f245d5dfa40eeae59e4c52a007608afe75c06ed2a254c9c"
+    },
+    {
+      "id": "Spaces_vs._Tabs",
+      "level": 3,
+      "title": "Spaces vs. Tabs",
+      "file": "Spaces_vs._Tabs.txt",
+      "sha256": "d78ec490b1fb2889a968bc1df1f40b6e7cd114863e0382824f7f72423ed7af7b"
+    },
+    {
+      "id": "Function_Declarations_and_Definitions",
+      "level": 3,
+      "title": "Function Declarations and Definitions",
+      "file": "Function_Declarations_and_Definitions.txt",
+      "sha256": "1894df3b9dbdaa2c894d4683b8784a9b3d48cfba5e9d568679074ad71329cc0b"
+    },
+    {
+      "id": "Formatting_Lambda_Expressions",
+      "level": 3,
+      "title": "Lambda Expressions",
+      "file": "Formatting_Lambda_Expressions.txt",
+      "sha256": "033fb4d77f7f26eaf8ba511b5c447a2594c45fe0af69776c11925bd8ec197efa"
+    },
+    {
+      "id": "Floating_Literals",
+      "level": 3,
+      "title": "Floating-point Literals",
+      "file": "Floating_Literals.txt",
+      "sha256": "e8868408b2325931370a50bdc9c24bd5795cea0398d36daad9ba08f6335bc554"
+    },
+    {
+      "id": "Function_Calls",
+      "level": 3,
+      "title": "Function Calls",
+      "file": "Function_Calls.txt",
+      "sha256": "7bbf977e499ec09b1117c9211b732eaa76f2815ac61fd7c7f5ad44306464edad"
+    },
+    {
+      "id": "Braced_Initializer_List_Format",
+      "level": 3,
+      "title": "Braced Initializer List Format",
+      "file": "Braced_Initializer_List_Format.txt",
+      "sha256": "c2e2dd7ca75b646be6c9907cc3067fe2821510edc4c722479972c950815056a8"
+    },
+    {
+      "id": "Formatting_Looping_Branching",
+      "level": 3,
+      "title": "Looping and branching statements",
+      "file": "Formatting_Looping_Branching.txt",
+      "sha256": "cbb8ff22331e0c6d373a9c1825e26ebd7aafa7e40418263811995a247b7b423e"
+    },
+    {
+      "id": "Pointer_and_Reference_Expressions",
+      "level": 3,
+      "title": "Pointer and Reference Expressions and Types",
+      "file": "Pointer_and_Reference_Expressions.txt",
+      "sha256": "5ac7adfbce757cfec10f084ae0621674e6656ad28036a265267bc8e97dd8a622"
+    },
+    {
+      "id": "Boolean_Expressions",
+      "level": 3,
+      "title": "Boolean Expressions",
+      "file": "Boolean_Expressions.txt",
+      "sha256": "5373165ad2d0aaa9162917e667d3a0c32b49c3d058d05a9512718ea5b2c71c4b"
+    },
+    {
+      "id": "Return_Values",
+      "level": 3,
+      "title": "Return Values",
+      "file": "Return_Values.txt",
+      "sha256": "9875496aa5309b3b3ecd7ab5ed7f1658206e317a87401aa281019dbad924ea3a"
+    },
+    {
+      "id": "Variable_and_Array_Initialization",
+      "level": 3,
+      "title": "Variable and Array Initialization",
+      "file": "Variable_and_Array_Initialization.txt",
+      "sha256": "9af0e7252c80bce6512cc46153cd6982b9dc7cce72f662150eadec167d0b92d1"
+    },
+    {
+      "id": "Preprocessor_Directives",
+      "level": 3,
+      "title": "Preprocessor Directives",
+      "file": "Preprocessor_Directives.txt",
+      "sha256": "5f422ae0a5c1cb60bae477686cad52750d47258d162ef186c660a066bbc68dd9"
+    },
+    {
+      "id": "Class_Format",
+      "level": 3,
+      "title": "Class Format",
+      "file": "Class_Format.txt",
+      "sha256": "1b77cd1f11672c346dd31b7f413950a93246787d37da7b5c98fd714f39802bf3"
+    },
+    {
+      "id": "Constructor_Initializer_Lists",
+      "level": 3,
+      "title": "Constructor Initializer Lists",
+      "file": "Constructor_Initializer_Lists.txt",
+      "sha256": "bc429b561235d01eb43bec430c4ebbe4c42fe5d274bc630a5b544998685ee788"
+    },
+    {
+      "id": "Namespace_Formatting",
+      "level": 3,
+      "title": "Namespace Formatting",
+      "file": "Namespace_Formatting.txt",
+      "sha256": "4707ea4f2ca1b31ef8030a00cd1f224759d98856f138b7807825034f4836ff63"
+    },
+    {
+      "id": "Horizontal_Whitespace",
+      "level": 3,
+      "title": "Horizontal Whitespace",
+      "file": "Horizontal_Whitespace.txt",
+      "sha256": "dc5ec722a66d8996bf1b988554829ae51990c1c5453450376e0ff83e4962d1eb"
+    },
+    {
+      "id": "Vertical_Whitespace",
+      "level": 3,
+      "title": "Vertical Whitespace",
+      "file": "Vertical_Whitespace.txt",
+      "sha256": "df86aaf1ab653ff9e7d5d833807d79a6421a92ac80410229b382e64756b7c519"
+    },
+    {
+      "id": "Exceptions_to_the_Rules",
+      "level": 2,
+      "title": "Exceptions to the Rules",
+      "file": "Exceptions_to_the_Rules.txt",
+      "sha256": "a7339df7d1e2aecf3f15c6f5ae9f375ea6f984fb95a851a7038496f526c125d6"
+    },
+    {
+      "id": "Existing_Non-conformant_Code",
+      "level": 3,
+      "title": "Existing Non-conformant Code",
+      "file": "Existing_Non-conformant_Code.txt",
+      "sha256": "d8eaf09bb9f2b6ada352f0d8c13c97eb93ff431fdcda6bcccc6a262173bba78c"
+    },
+    {
+      "id": "Windows_Code",
+      "level": 3,
+      "title": "Windows Code",
+      "file": "Windows_Code.txt",
+      "sha256": "49fe2a6a9f5c6399a42fb252e37e901429cfab24c77c9462f7f06c143424869a"
+    }
+  ]
+}

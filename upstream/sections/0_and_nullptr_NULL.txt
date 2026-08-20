@@ -1,0 +1,1 @@
+Use nullptr for pointers, and '\0' for chars (and not the 0 literal). For pointers (address values), use nullptr, as this provides type-safety. Use '\0' for the null character. Using the correct type makes the code more readable.

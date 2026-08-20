@@ -1,0 +1,20 @@
+Include the definition of a function at its point of declaration in a header file only when the definition is short. If the definition otherwise has a reason be in the header, put it in an internal part of the file. If necessary to make the definition ODR-safe, mark it with an inline specifier. Functions defined in header files are sometimes referred to as "inline functions", which is a somewhat overloaded term that refers to several distinct but overlapping situations: A textually inline symbol's definition is exposed to the reader at the point of declaration. A function or variable defined in a header file is expandable inline since its definition is available for inline expansion by the compiler, which can lead to more efficient object code. ODR-safe entities do not violate the "One Definition Rule", which often requires the inline keyword for things defined in header files . While functions tend to be a more common source of confusion, these definitions apply to variables as well, and so do the rules here. Defining a function textually in-line reduces boilerplate code for simple functions like accessors and mutators. As noted above, function definitions in header files can lead to more efficient object code for small functions due to inline expansion by the compiler. Function templates and constexpr functions generally need to be defined in the header file that declares them (but not necessarily the public part). Embedding a function definition in the public API makes the API harder to skim, and incurs cognitive overhead for readers of that API- the more complex the function the higher the cost. Public definitions expose implementation details that are at best harmless and often extraneous. Only define a function at its public declaration if it is short, say, 10 lines or fewer. Put longer function bodies in the .cc file unless they must be in the header for performance or technical reasons. Even if a definition must be in the header, this is not a sufficient reason to put it within the public part. Instead, the definition can be in an internal part of the header, such as the private section of a class, within a namespace that includes the word internal, or below a comment like // Implementation details only below here. Once a definition is in a header file, it must be ODR-safe by having the inline specifier or being implicitly specified inline by being a function template or defined in a class body when first declared.
+<pre>
+template <typename T>
+class Foo {
+ public:
+  int bar() { return bar_; }
+
+  void MethodWithHugeBody();
+
+ private:
+  int bar_;
+};
+
+// Implementation details only below here
+
+template <typename T>
+void Foo<T>::MethodWithHugeBody() {
+  ...
+}
+</pre>

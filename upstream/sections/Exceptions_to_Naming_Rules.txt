@@ -1,0 +1,1 @@
+If you are naming something that is analogous to an existing C or C++ entity (or a Rust entity via interop), then you can follow the existing naming convention scheme. bigopen() function name, follows form of open() uint typedef bigpos struct or class, follows form of pos sparse_hash_map STL-like entity; follows STL naming conventions LONGLONG_MAX a constant, as in INT_MAX

@@ -1,0 +1,16 @@
+Type names start with a capital letter and have a capital letter for each new word, with no underscores: MyExcitingClass, MyExcitingEnum. The names of all types — classes, structs, type aliases, enums, and type template parameters — have the same naming convention. Type names should start with a capital letter and have a capital letter for each new word. No underscores. For example:
+<pre>
+// classes and structs
+class UrlTable { ...
+class UrlTableTester { ...
+struct UrlTableProperties { ...
+
+// typedefs
+typedef hash_map<UrlTableProperties*, std::string> PropertiesMap;
+
+// using aliases
+using PropertiesMap = hash_map<UrlTableProperties*, std::string>;
+
+// enums
+enum class UrlTableError { ...
+</pre>

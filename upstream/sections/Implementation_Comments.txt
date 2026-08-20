@@ -1,0 +1,33 @@
+In your implementation you should have comments in tricky, non-obvious, interesting, or important parts of your code. Explanatory Comments Tricky or complicated code blocks should have comments before them. Function Argument Comments When the meaning of a function argument is nonobvious, consider one of the following remedies: If the argument is a literal constant, and the same constant is used in multiple function calls in a way that tacitly assumes they're the same, you should use a named constant to make that constraint explicit, and to guarantee that it holds. Consider changing the function signature to replace a bool argument with an enum argument. This will make the argument values self-describing. For functions that have several configuration options, consider defining a single class or struct to hold all the options , and pass an instance of that. This approach has several advantages. Options are referenced by name at the call site, which clarifies their meaning. It also reduces function argument count, which makes function calls easier to read and write. As an added benefit, you don't have to change call sites when you add another option. Replace large or complex nested expressions with named variables. As a last resort, use comments to clarify argument meanings at the call site. Consider the following example:
+<pre>
+// What are these arguments?
+const DecimalNumber product = CalculateProduct(values, 7, false, nullptr);
+</pre>
+versus:
+<pre>
+ProductOptions options;
+options.set_precision_decimals(7);
+options.set_use_cache(ProductOptions::kDontUseCache);
+const DecimalNumber product =
+    CalculateProduct(values, options, /*completion_callback=*/nullptr);
+</pre>
+Don'ts Do not state the obvious. In particular, don't literally describe what code does, unless the behavior is nonobvious to a reader who understands C++ well. Instead, provide higher-level comments that describe why the code does what it does, or make the code self-describing. Compare this:
+<pre>
+// Find the element in the vector.  <-- Bad: obvious!
+if (std::find(v.begin(), v.end(), element) != v.end()) {
+  Process(element);
+}
+</pre>
+To this:
+<pre>
+// Process "element" unless it was already processed.
+if (std::find(v.begin(), v.end(), element) != v.end()) {
+  Process(element);
+}
+</pre>
+Self-describing code doesn't need a comment. The comment from the example above would be obvious:
+<pre>
+if (!IsAlreadyProcessed(element)) {
+  Process(element);
+}
+</pre>

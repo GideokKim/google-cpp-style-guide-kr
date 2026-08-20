@@ -1,0 +1,6 @@
+When definitions in a .cc file do not need to be referenced outside that file, give them internal linkage by placing them in an unnamed namespace or declaring them static. Do not use either of these constructs in .h files. All declarations can be given internal linkage by placing them in unnamed namespaces. Functions and variables can also be given internal linkage by declaring them static. This means that anything you're declaring can't be accessed from another file. If a different file declares something with the same name, then the two entities are completely independent. Use of internal linkage in .cc files is encouraged for all code that does not need to be referenced elsewhere. Do not use internal linkage in .h files. Format unnamed namespaces like named namespaces. In the terminating comment, leave the namespace name empty:
+<pre>
+namespace {
+...
+}  // namespace
+</pre>

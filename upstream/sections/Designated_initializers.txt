@@ -1,0 +1,15 @@
+Use designated initializers only in their C++20-compliant form. Designated initializers are a syntax that allows for initializing an aggregate ("plain old struct") by naming its fields explicitly:
+<pre>
+  struct Point {
+    float x = 0.0;
+    float y = 0.0;
+    float z = 0.0;
+  };
+
+  Point p = {
+    .x = 1.0,
+    .y = 2.0,
+    // z will be 0.0
+  };
+</pre>
+The explicitly listed fields will be initialized as specified, and others will be initialized in the same way they would be in a traditional aggregate initialization expression like Point{1.0, 2.0}. Designated initializers can make for convenient and highly readable aggregate expressions, especially for structs with less straightforward ordering of fields than the Point example above. While designated initializers have long been part of the C standard and supported by C++ compilers as an extension, they were not supported by C++ prior to C++20. The rules in the C++ standard are stricter than in C and compiler extensions, requiring that the designated initializers appear in the same order as the fields appear in the struct definition. So in the example above, it is legal according to C++20 to initialize x and then z, but not y and then x. Use designated initializers only in the form that is compatible with the C++20 standard: with initializers in the same order as the corresponding fields appear in the struct definition.

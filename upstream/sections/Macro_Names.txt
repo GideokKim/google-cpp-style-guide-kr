@@ -1,0 +1,4 @@
+You're not really going to define a macro, are you? If you do, they're like this: MY_MACRO_THAT_SCARES_SMALL_CHILDREN_AND_ADULTS_ALIKE. Please see the description of macros; in general macros should not be used. However, if they are absolutely needed, then they should be named with all capitals and underscores, and with a project-specific prefix.
+<pre>
+#define MYPROJECT_ROUND(x) ...
+</pre>

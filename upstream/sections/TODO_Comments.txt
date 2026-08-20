@@ -1,0 +1,8 @@
+Use TODO comments for code that is temporary, a short-term solution, or good-enough but not perfect. TODOs should include the string TODO in all caps, followed by the bug ID, name, e-mail address, or other identifier of the person or issue with the best context about the problem referenced by the TODO. Recommended styles are (in order of preference):
+<pre>
+// TODO: bug 12345678 - Remove this after the 2047q4 compatibility window expires.
+// TODO: example.com/my-design-doc - Manually fix up this code the next time it's touched.
+// TODO(bug 12345678): Update this list after the Foo service is turned down.
+// TODO(John): Use a "\*" here for concatenation operator.
+</pre>
+If your TODO is of the form "At a future date do something" make sure that you either include a very specific date ("Fix by November 2005") or a very specific event ("Remove this code when all clients can handle XML responses.").
