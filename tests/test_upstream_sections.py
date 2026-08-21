@@ -165,6 +165,26 @@ class SnapshotTest(unittest.TestCase):
 
         self.assertFalse(us.MANIFEST.exists())
 
+    def test_use_snapshot_dir_redirects_writes_elsewhere(self):
+        before = (us.SNAPSHOT_DIR, us.MANIFEST, us.SECTIONS_DIR)
+        other = Path(self.tmp.name) / "elsewhere"
+        sections = self.make_sections([(3, "Casting", "Casting", "<p>a</p>")])
+
+        try:
+            us.use_snapshot_dir(other)
+            us.write_snapshot(sections, commit=None, source="local")
+
+            self.assertEqual(us.SNAPSHOT_DIR, other)
+            self.assertTrue((other / "manifest.json").exists())
+            self.assertTrue((other / "sections" / "Casting.txt").exists())
+        finally:
+            us.SNAPSHOT_DIR, us.MANIFEST, us.SECTIONS_DIR = before
+
+        # The redirected directory must be distinct from the real repo's
+        # snapshot location, and must be restored to the pre-redirect value.
+        self.assertNotEqual(other, self._saved[0])
+        self.assertEqual(us.SNAPSHOT_DIR, before[0])
+
 
 class ParseOrDieTest(unittest.TestCase):
     def test_short_document_is_rejected(self):

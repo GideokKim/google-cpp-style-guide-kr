@@ -16,16 +16,17 @@ for sha in c6f57a91 c885dc26 3c5c895c 1809c769; do
 done
 
 python3 scripts/upstream_sections.py snapshot \
-  --source "$work/c6f57a91.html" --commit c6f57a91 >/dev/null
+  --source "$work/c6f57a91.html" --commit c6f57a91 \
+  --snapshot-dir "$work/snapshot" >/dev/null
 
 for sha in c885dc26 3c5c895c 1809c769; do
   echo "=== $sha"
-  python3 scripts/upstream_sections.py diff \
+  body="$(python3 scripts/upstream_sections.py diff \
     --source "$work/$sha.html" --commit "$sha" \
-    | grep -cE '^\| `' || true
-  python3 scripts/upstream_sections.py diff \
-    --source "$work/$sha.html" --commit "$sha" \
-    | grep -E '^- \[ \] (추가됨|삭제됨)' || true
+    --snapshot-dir "$work/snapshot")"
+  printf '%s\n' "$body" | grep -cE '^\| `' || true
+  printf '%s\n' "$body" | grep -E '^- \[ \] (추가됨|삭제됨)' || true
   python3 scripts/upstream_sections.py snapshot \
-    --source "$work/$sha.html" --commit "$sha" >/dev/null
+    --source "$work/$sha.html" --commit "$sha" \
+    --snapshot-dir "$work/snapshot" >/dev/null
 done

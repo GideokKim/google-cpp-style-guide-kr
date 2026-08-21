@@ -89,6 +89,14 @@ def split_sections(document: str) -> list[Section]:
     return sections
 
 
+def use_snapshot_dir(path: Path) -> None:
+    """Point the snapshot at a different directory, for replays and tests."""
+    global SNAPSHOT_DIR, MANIFEST, SECTIONS_DIR
+    SNAPSHOT_DIR = path
+    MANIFEST = SNAPSHOT_DIR / "manifest.json"
+    SECTIONS_DIR = SNAPSHOT_DIR / "sections"
+
+
 def slug_for(section_id: str) -> str:
     """Section ids contain '/', ',' and '+', which are unusable in filenames."""
     return UNSAFE_RE.sub("_", section_id)
@@ -301,13 +309,17 @@ def main(argv=None) -> int:
     snapshot = sub.add_parser("snapshot", help="rewrite the stored snapshot")
     snapshot.add_argument("--source", default=CPPGUIDE_URL)
     snapshot.add_argument("--commit", default=None)
+    snapshot.add_argument("--snapshot-dir", default=None)
 
     diff_cmd = sub.add_parser("diff", help="compare upstream against the snapshot")
     diff_cmd.add_argument("--source", default=CPPGUIDE_URL)
     diff_cmd.add_argument("--commit", default=None)
     diff_cmd.add_argument("--title-out", default=None)
+    diff_cmd.add_argument("--snapshot-dir", default=None)
 
     args = parser.parse_args(argv)
+    if args.snapshot_dir:
+        use_snapshot_dir(Path(args.snapshot_dir))
     document = read_source(args.source)
     sections = parse_or_die(document)
 
