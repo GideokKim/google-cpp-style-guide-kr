@@ -69,6 +69,15 @@ python3 scripts/check_translation_coverage.py
 mkdocs build --strict
 ```
 
+원문 변경 감지는 `.github/workflows/upstream-watch.yml`이 매주 수행합니다. 로컬에서 직접 확인하려면 다음을 실행하세요.
+
+```bash
+python3 scripts/upstream_sections.py diff   # 변경이 있으면 이슈 본문용 마크다운을 출력
+python3 scripts/upstream_sections.py snapshot  # 기준 스냅샷 갱신
+```
+
+기준 스냅샷은 `upstream/`에 있으며, 워크플로가 변경을 감지할 때마다 자동으로 갱신됩니다.
+
 ## 📖 참고 자료
 
 - [Google C++ Style Guide (원문)](https://google.github.io/styleguide/cppguide.html)

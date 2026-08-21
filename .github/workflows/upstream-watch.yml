@@ -1,0 +1,82 @@
+name: "Upstream watch"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 1"
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+          architecture: x64
+
+      - name: "Fetch upstream guide"
+        id: fetch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          curl -sSfL \
+            https://raw.githubusercontent.com/google/styleguide/gh-pages/cppguide.html \
+            -o cppguide.html
+          sha="$(gh api \
+            'repos/google/styleguide/commits?path=cppguide.html&sha=gh-pages&per_page=1' \
+            --jq '.[0].sha')"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+
+      - name: "Detect changes"
+        id: detect
+        run: |
+          set -euo pipefail
+          python3 scripts/upstream_sections.py diff \
+            --source cppguide.html \
+            --commit "${{ steps.fetch.outputs.sha }}" \
+            --title-out issue-title.txt > issue-body.md
+          if [ -s issue-body.md ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: "Refresh snapshot"
+        if: steps.detect.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          python3 scripts/upstream_sections.py snapshot \
+            --source cppguide.html \
+            --commit "${{ steps.fetch.outputs.sha }}"
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+          git add upstream
+          git commit \
+            -m "chore(upstream): refresh section snapshot" \
+            -m "Detected an upstream change and recorded the new baseline. The
+          translation work itself is tracked in the issue opened by the
+          same workflow run."
+          git push
+
+      - name: "Open issue"
+        if: steps.detect.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh issue create \
+            --title "$(cat issue-title.txt)" \
+            --body-file issue-body.md \
+            --label documentation \
+            --label enhancement
+
+      - name: "Dump report on failure"
+        if: failure() && steps.detect.outputs.changed == 'true'
+        run: |
+          echo "이슈 생성에 실패했습니다. 아래 본문으로 수동 생성하세요."
+          cat issue-body.md
