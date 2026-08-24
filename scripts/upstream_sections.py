@@ -260,22 +260,31 @@ def render_issue_body(changes, topic_map, previous_commit, current_commit) -> st
         ]
 
     if changes.changed:
+        rows = [
+            (section, previous_text, topic_map.get(section.id))
+            for section, previous_text in changes.changed
+        ]
+
         out += [
             "## 내용이 바뀐 섹션",
             "",
             "| 섹션 | 원문 제목 | 번역 파일 |",
             "| --- | --- | --- |",
         ]
-        for section, _ in changes.changed:
-            target = topic_map.get(section.id)
+        for section, _, target in rows:
             cell = f"`google cpp style guide/{target}`" if target else "(매핑 없음)"
             out.append(f"| `{section.id}` | {escape_table_cell(section.title)} | {cell} |")
         out += ["", "### 할 일", ""]
-        for section, _ in changes.changed:
-            target = topic_map.get(section.id, "(매핑 없음)")
-            out.append(f"- [ ] `google cpp style guide/{target}`")
+        for section, _, target in rows:
+            if target:
+                out.append(f"- [ ] `google cpp style guide/{target}`")
+            else:
+                out.append(
+                    f"- [ ] `{section.id}`: 번역 파일을 새로 만들고 "
+                    "`scripts/upstream-topic-map.json`에 항목을 추가하세요"
+                )
         out += ["", "### 변경 내용", ""]
-        for section, previous_text in changes.changed:
+        for section, previous_text, _ in rows:
             excerpt = diff_excerpt(previous_text, section.text)
             fence = fence_for_content(excerpt)
             out += [

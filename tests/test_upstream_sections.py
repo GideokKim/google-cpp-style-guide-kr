@@ -337,6 +337,14 @@ class RenderTest(unittest.TestCase):
         wrapped = f"{fence}diff\n{excerpt}\n{fence}"
         self.assertIn("```", wrapped)
 
+    def test_changed_section_without_topic_map_entry_has_no_fake_path(self):
+        body = us.render_issue_body(self.build_changes(), {}, None, None)
+
+        self.assertNotIn("google cpp style guide/(매핑 없음)", body)
+        self.assertIn("(매핑 없음)", body)
+        self.assertIn("Casting", body)
+        self.assertIn("upstream-topic-map.json", body)
+
     def test_render_body_with_added_removed_but_no_changed(self):
         section = us.Section(
             id="New_Section",
