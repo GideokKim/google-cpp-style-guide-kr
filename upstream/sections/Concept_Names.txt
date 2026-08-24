@@ -1,0 +1,1 @@
+Concept names follow the same rules as type names.

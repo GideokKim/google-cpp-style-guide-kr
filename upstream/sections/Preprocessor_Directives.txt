@@ -1,0 +1,22 @@
+The hash mark that starts a preprocessor directive should always be at the beginning of the line. Even when preprocessor directives are within the body of indented code, the directives should start at the beginning of the line.
+<pre>
+// Good - directives at beginning of line
+  if (lopsided_score) {
+#if DISASTER_PENDING      // Correct -- Starts at beginning of line
+    DropEverything();
+# if NOTIFY               // OK but not required -- Spaces after #
+    NotifyClient();
+# endif
+#endif
+    BackToNormal();
+  }
+</pre>
+<pre>
+// Bad - indented directives
+  if (lopsided_score) {
+    #if DISASTER_PENDING  // Wrong!  The "#if" should be at beginning of line
+    DropEverything();
+    #endif                // Wrong!  Do not indent "#endif"
+    BackToNormal();
+  }
+</pre>

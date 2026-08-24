@@ -1,0 +1,12 @@
+Use class template argument deduction only with templates that have explicitly opted into supporting it. Class template argument deduction (often abbreviated "CTAD") occurs when a variable is declared with a type that names a template, and the template argument list is not provided (not even empty angle brackets):
+<pre>
+std::array a = {1, 2, 3};  // `a` is a std::array<int, 3>
+</pre>
+The compiler deduces the arguments from the initializer using the template's "deduction guides", which can be explicit or implicit. Explicit deduction guides look like function declarations with trailing return types, except that there's no leading auto, and the function name is the name of the template. For example, the above example relies on this deduction guide for std::array:
+<pre>
+namespace std {
+template <class T, class... U>
+array(T, U...) -> std::array<T, 1 + sizeof...(U)>;
+}
+</pre>
+Constructors in a primary template (as opposed to a template specialization) also implicitly define deduction guides. When you declare a variable that relies on CTAD, the compiler selects a deduction guide using the rules of constructor overload resolution, and that guide's return type becomes the type of the variable. CTAD can sometimes allow you to omit boilerplate from your code. The implicit deduction guides that are generated from constructors may have undesirable behavior, or be outright incorrect. This is particularly problematic for constructors written before CTAD was introduced in C++17, because the authors of those constructors had no way of knowing about (much less fixing) any problems that their constructors would cause for CTAD. Furthermore, adding explicit deduction guides to fix those problems might break any existing code that relies on the implicit deduction guides. CTAD also suffers from many of the same drawbacks as auto, because they are both mechanisms for deducing all or part of a variable's type from its initializer. CTAD does give the reader more information than auto, but it also doesn't give the reader an obvious cue that information has been omitted. Do not use CTAD with a given template unless the template's maintainers have opted into supporting use of CTAD by providing at least one explicit deduction guide (all templates in the std namespace are also presumed to have opted in). This should be enforced with a compiler warning if available. Uses of CTAD must also follow the general rules on Type deduction.

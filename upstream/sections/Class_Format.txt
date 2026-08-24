@@ -1,0 +1,24 @@
+Sections in public, protected, and private order, each indented one space. The basic format for a class definition (lacking the comments, see Class Comments for a discussion of what comments are needed) is:
+<pre>
+class MyClass : public OtherClass {
+ public:      // Note the 1 space indent!
+  MyClass();  // Regular 2 space indent.
+  explicit MyClass(int var);
+  MyClass(const MyClass& other);
+  MyClass& operator=(const MyClass& other);
+  ~MyClass() {}
+
+  void SomeFunction();
+  void SomeFunctionThatDoesNothing() {}
+
+  void set_some_var(int var) { some_var_ = var; }
+  int some_var() const { return some_var_; }
+
+ private:
+  bool SomeInternalFunction();
+
+  int some_var_;
+  int some_other_var_;
+};
+</pre>
+Things to note: Any base class name should be on the same line as the subclass name, subject to the 80-column limit. The public:, protected:, and private: keywords should be indented one space. Except for the first instance, these keywords should be preceded by a blank line. This rule is optional in small classes. Do not leave a blank line after these keywords. The public section should be first, followed by the protected and finally the private section. See Declaration Order for rules on ordering declarations within each of these sections.

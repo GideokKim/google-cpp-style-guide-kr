@@ -1,0 +1,38 @@
+Either write the call all on a single line, wrap the arguments at the parenthesis, or start the arguments on a new line indented by four spaces and continue at that 4 space indent. In the absence of other considerations, use the minimum number of lines, including placing multiple arguments on each line where appropriate. Function calls have the following format:
+<pre>
+bool result = DoSomething(argument1, argument2, argument3);
+</pre>
+If the arguments do not all fit on one line, they should be broken up onto multiple lines, with each subsequent line aligned with the first argument. Do not add spaces after the open paren or before the close paren:
+<pre>
+bool result = DoSomething(averyveryveryverylongargument1,
+                          argument2, argument3);
+</pre>
+Arguments may optionally all be placed on subsequent lines with a four space indent:
+<pre>
+if (...) {
+  ...
+  ...
+  if (...) {
+    bool result = DoSomething(
+        argument1, argument2,  // 4 space indent
+        argument3, argument4);
+    ...
+  }
+</pre>
+Put multiple arguments on a single line to reduce the number of lines necessary for calling a function unless there is a specific readability problem. Some find that formatting with strictly one argument on each line is more readable and simplifies editing of the arguments. However, we prioritize for the reader over the ease of editing arguments, and most readability problems are better addressed with the following techniques. If having multiple arguments in a single line decreases readability due to the complexity or confusing nature of the expressions that make up some arguments, try creating variables that capture those arguments in a descriptive name:
+<pre>
+int my_heuristic = scores[x] * y + bases[x];
+bool result = DoSomething(my_heuristic, x, y, z);
+</pre>
+Or put the confusing argument on its own line with an explanatory comment:
+<pre>
+bool result = DoSomething(scores[x] * y + bases[x],  // Score heuristic.
+                          x, y, z);
+</pre>
+If there is still a case where one argument is significantly more readable on its own line, then put it on its own line. The decision should be specific to the argument which is made more readable rather than a general policy. Sometimes arguments form a structure that is important for readability. In those cases, feel free to format the arguments according to that structure:
+<pre>
+// Transform the widget by a 3x3 matrix.
+my_widget.Transform(x1, x2, x3,
+                    y1, y2, y3,
+                    z1, z2, z3);
+</pre>

@@ -1,0 +1,1 @@
+Of the built-in C++ floating-point types, the only ones used are float and double. You may assume that these types represent IEEE-754 binary32 and binary64, respectively. Do not use long double, as it gives non-portable results.

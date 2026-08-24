@@ -1,0 +1,29 @@
+The names of variables (including function parameters) and data members are snake_case (all lowercase, with underscores between words). Data members of classes (but not structs) additionally have trailing underscores. For instance: a_local_variable, a_struct_data_member, a_class_data_member_. Common Variable names For example:
+<pre>
+std::string table_name;  // OK - snake_case.
+</pre>
+<pre>
+std::string tableName;   // Bad - mixed case.
+</pre>
+Class Data Members Data members of classes, both static and non-static, are named like ordinary nonmember variables, but with a trailing underscore. The exception to this is static constant class members, which should follow the rules for naming constants.
+<pre>
+class TableInfo {
+ public:
+  ...
+  static const int kTableVersion = 3;  // OK - constant naming.
+  ...
+
+ private:
+  std::string table_name_;             // OK - underscore at end.
+  static Pool<TableInfo>* absl_nullable pool_;       // OK.
+};
+</pre>
+Struct Data Members Data members of structs, both static and non-static, are named like ordinary nonmember variables. They do not have the trailing underscores that data members in classes have.
+<pre>
+struct UrlTableProperties {
+  std::string name;
+  int num_entries;
+  static Pool<UrlTableProperties>* absl_nullable pool;
+};
+</pre>
+See Structs vs. Classes for a discussion of when to use a struct versus a class.

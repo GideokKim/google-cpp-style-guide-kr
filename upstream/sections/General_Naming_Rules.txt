@@ -1,0 +1,42 @@
+Give things names that make their purpose or intent understandable to a new reader, even someone on a different team than the owners. Do not worry about saving horizontal space as it is far more important to make your code immediately understandable by a new reader. Consider the context in which the name will be used. A name should be descriptive even if it is used far from the code that makes it available for use. However, a name should not distract the reader by repeating information that's present in the immediate context. Generally, this means that descriptiveness should be proportional to the name's scope of visibility. A free function declared in a header should probably mention the header's library, while a local variable probably shouldn't explain what function it's within. Minimize the use of abbreviations that would likely be unknown to someone outside your project (especially acronyms and initialisms). Do not abbreviate by deleting letters within a word. When an abbreviation is used, prefer to capitalize it as a single "word", e.g., StartRpc() rather than StartRPC(). As a rule of thumb, an abbreviation is probably OK if it's listed in Wikipedia. Note that certain universally-known abbreviations are OK, such as i for a loop index and T for a template parameter. The names you see most frequently are not like most names; a small number of "vocabulary" names are reused so widely that they are always in context. These names tend to be short or even abbreviated and their full meaning comes from explicit long-form documentation rather than from just comments on their definition and the words within the names. For example, absl::Status has a dedicated page in a devguide, documenting its proper use. You probably won't define new vocabulary names very often, but if you do, get additional design review to make sure the chosen names work well when used widely.
+<pre>
+class MyClass {
+ public:
+  int CountFooErrors(const std::vector<Foo>& foos) {
+    int n = 0;  // Clear meaning given limited scope and context
+    for (const auto& foo : foos) {
+      ...
+      ++n;
+    }
+    return n;
+  }
+  // Function comment doesn't need to explain that this returns non-OK on
+  // failure as that is implied by the `absl::Status` return type, but it
+  // might document behavior for some specific codes.
+  absl::Status DoSomethingImportant() {
+    std::string fqdn = ...;  // Well-known abbreviation for Fully Qualified Domain Name
+    return absl::OkStatus();
+  }
+ private:
+  const int kMaxAllowedConnections = ...;  // Clear meaning within context
+};
+</pre>
+<pre>
+class MyClass {
+ public:
+  int CountFooErrors(const std::vector<Foo>& foos) {
+    int total_number_of_foo_errors = 0;  // Overly verbose given limited scope and context
+    for (int foo_index = 0; foo_index < foos.size(); ++foo_index) {  // Use idiomatic `i`
+      ...
+      ++total_number_of_foo_errors;
+    }
+    return total_number_of_foo_errors;
+  }
+  // A return type with a generic name is unclear without widespread education.
+  Result DoSomethingImportant() {
+    int cstmr_id = ...;  // Deletes internal letters
+  }
+ private:
+  const int kNum = ...;  // Unclear meaning within broad scope
+};
+</pre>

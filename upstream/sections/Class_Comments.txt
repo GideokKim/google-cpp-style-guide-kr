@@ -1,0 +1,13 @@
+Every non-obvious class or struct declaration should have an accompanying comment that describes what it is for and how it should be used.
+<pre>
+// Iterates over the contents of a GargantuanTable.
+// Example:
+//    std::unique_ptr<GargantuanTableIterator> iter = table->NewIterator();
+//    for (iter->Seek("foo"); !iter->done(); iter->Next()) {
+//      process(iter->key(), iter->value());
+//    }
+class GargantuanTableIterator {
+  ...
+};
+</pre>
+Class Comments The class comment should provide the reader with enough information to know how and when to use the class, as well as any additional considerations necessary to correctly use the class. Document the synchronization assumptions the class makes, if any. If an instance of the class can be accessed by multiple threads, take extra care to document the rules and invariants surrounding multithreaded use. The class comment is often a good place for a small example code snippet demonstrating a simple and focused usage of the class. When sufficiently separated (e.g., .h and .cc files), comments describing the use of the class should go together with its interface definition; comments about the class operation and implementation should accompany the implementation of the class's methods.

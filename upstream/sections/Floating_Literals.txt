@@ -1,0 +1,13 @@
+Floating-point literals should always have a radix point, with digits on both sides, even if they use exponential notation. Readability is improved if all floating-point literals take this familiar form, as this helps ensure that they are not mistaken for integer literals, and that the E/e of the exponential notation is not mistaken for a hexadecimal digit. It is fine to initialize a floating-point variable with an integer literal (assuming the variable type can exactly represent that integer), but note that a number in exponential notation is never an integer literal.
+<pre>
+float f = 1.f;
+long double ld = -.5L;
+double d = 1248e6;
+</pre>
+<pre>
+float f = 1.0f;
+float f2 = 1.0;  // Also OK
+float f3 = 1;    // Also OK
+long double ld = -0.5L;
+double d = 1248.0e6;
+</pre>

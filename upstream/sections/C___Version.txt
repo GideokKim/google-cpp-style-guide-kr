@@ -1,0 +1,1 @@
+Currently, code should target C++20, i.e., should not use C++23 features. The C++ version targeted by this guide will advance (aggressively) over time. Do not use non-standard extensions. Consider portability to other environments before using features from C++17 and C++20 in your project.

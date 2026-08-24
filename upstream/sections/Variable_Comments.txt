@@ -1,0 +1,12 @@
+In general the actual name of the variable should be descriptive enough to give a good idea of what the variable is used for. In certain cases, more comments are required. Class Data Members The purpose of each class data member (also called an instance variable or member variable) must be clear. If there are any invariants (special values, relationships between members, lifetime requirements) not clearly expressed by the type and name, they must be commented. However, if the type and name suffice (int num_events_;), no comment is needed. In particular, add comments to describe the existence and meaning of sentinel values, such as nullptr or -1, when they are not obvious. For example:
+<pre>
+private:
+ // Used to bounds-check table accesses. -1 means
+ // that we don't yet know how many entries the table has.
+ int num_total_entries_;
+</pre>
+Global Variables All global variables should have a comment describing what they are, what they are used for, and (if unclear) why they need to be global. For example:
+<pre>
+// The total number of test cases that we run through in this regression test.
+const int kNumTestCases = 6;
+</pre>

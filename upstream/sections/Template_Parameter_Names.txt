@@ -1,0 +1,1 @@
+Template parameters should follow the naming style for their category: type template parameters should follow the rules for naming types, and non-type template parameters should follow the rules for naming variables or constants.

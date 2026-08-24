@@ -1,0 +1,1 @@
+Use either the // or /* */ syntax, as long as you are consistent. While either syntax is acceptable, // is much more common. Be consistent with how you comment and what style you use where.

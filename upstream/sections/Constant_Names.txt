@@ -1,0 +1,21 @@
+Variables declared constexpr or const, and whose value is fixed for the duration of the program, are named with a leading "k" followed by mixed case. Underscores can be used as separators in the rare cases where capitalization cannot be used for separation. For example:
+<pre>
+const int kDaysInAWeek = 7;
+const int kAndroid8_0_0 = 24;  // Android 8.0.0
+</pre>
+All such variables with static storage duration (i.e., statics and globals, see Storage Duration for details) should be named this way, including those that are static constant class data members and those in templates where different instantiations of the template may have different values. This convention is optional for variables of other storage classes, e.g., automatic variables; otherwise the usual variable naming rules apply. For example:
+<pre>
+void ComputeFoo(absl::string_view suffix) {
+  // Either of these is acceptable.
+  const absl::string_view kPrefix = "prefix";
+  const absl::string_view prefix = "prefix";
+  ...
+}
+</pre>
+<pre>
+void ComputeFoo(absl::string_view suffix) {
+  // Bad - different invocations of ComputeFoo give kCombined different values.
+  const std::string kCombined = absl::StrCat(kPrefix, suffix);
+  ...
+}
+</pre>

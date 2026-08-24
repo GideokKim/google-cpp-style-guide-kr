@@ -1,0 +1,11 @@
+Do not needlessly surround the return expression with parentheses. Use parentheses in return expr; only where you would use them in x = expr;.
+<pre>
+return result;                  // No parentheses in the simple case.
+// Parentheses OK to make a complex expression more readable.
+return (some_long_condition &&
+        another_condition);
+</pre>
+<pre>
+return (value);                // You wouldn't write var = (value);
+return(result);                // return is not a function!
+</pre>

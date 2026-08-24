@@ -1,0 +1,19 @@
+You may choose between =, (), and {}; the following are all correct:
+<pre>
+int x = 3;
+int x(3);
+int x{3};
+std::string name = "Some Name";
+std::string name("Some Name");
+std::string name{"Some Name"};
+</pre>
+Be careful when using a braced initialization list {...} on a type with an std::initializer_list constructor. A nonempty braced-init-list prefers the std::initializer_list constructor whenever possible. Note that empty braces {} are special, and will call a default constructor if available. To force the non-std::initializer_list constructor, use parentheses instead of braces.
+<pre>
+std::vector<int> v(100, 1);  // A vector containing 100 items: All 1s.
+std::vector<int> v{100, 1};  // A vector containing 2 items: 100 and 1.
+</pre>
+Also, the brace form prevents narrowing of integral types. This can prevent some types of programming errors.
+<pre>
+int pi(3.14);  // OK -- pi == 3.
+int pi{3.14};  // Compile error: narrowing conversion.
+</pre>
