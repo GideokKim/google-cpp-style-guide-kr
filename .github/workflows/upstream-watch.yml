@@ -9,6 +9,10 @@ permissions:
   contents: write
   issues: write
 
+concurrency:
+  group: "upstream-watch"
+  cancel-in-progress: false
+
 jobs:
   watch:
     runs-on: ubuntu-24.04
@@ -45,6 +49,18 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: "Open issue"
+        if: steps.detect.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh issue create \
+            --title "$(cat issue-title.txt)" \
+            --body-file issue-body.md \
+            --label documentation \
+            --label enhancement
+
       - name: "Refresh snapshot"
         if: steps.detect.outputs.changed == 'true'
         run: |
@@ -63,20 +79,12 @@ jobs:
           same workflow run."
           git push
 
-      - name: "Open issue"
-        if: steps.detect.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          gh issue create \
-            --title "$(cat issue-title.txt)" \
-            --body-file issue-body.md \
-            --label documentation \
-            --label enhancement
-
       - name: "Dump report on failure"
         if: failure() && steps.detect.outputs.changed == 'true'
         run: |
-          echo "이슈 생성에 실패했습니다. 아래 본문으로 수동 생성하세요."
+          echo "이 단계 실패는 두 가지 원인 중 하나입니다."
+          echo "1) 이슈 생성 실패: 아래 본문으로 이슈를 수동 생성하세요."
+          echo "2) 스냅샷 커밋/푸시 실패 (이슈는 이미 생성됨): 아무 것도"
+          echo "   하지 마세요. 다음 실행이 같은 변경을 다시 감지하고"
+          echo "   스냅샷을 갱신합니다."
           cat issue-body.md
