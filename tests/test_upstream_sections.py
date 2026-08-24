@@ -165,6 +165,16 @@ class SnapshotTest(unittest.TestCase):
 
         self.assertFalse(us.MANIFEST.exists())
 
+    def test_tampered_section_file_raises_on_load(self):
+        sections = self.make_sections([(3, "Casting", "Casting", "<p>alpha</p>")])
+        us.write_snapshot(sections, commit=None, source="local")
+
+        target = us.SECTIONS_DIR / "Casting.txt"
+        target.write_text("tampered content\n", encoding="utf-8")
+
+        with self.assertRaises(SystemExit):
+            us.load_snapshot()
+
     def test_use_snapshot_dir_redirects_writes_elsewhere(self):
         before = (us.SNAPSHOT_DIR, us.MANIFEST, us.SECTIONS_DIR)
         other = Path(self.tmp.name) / "elsewhere"

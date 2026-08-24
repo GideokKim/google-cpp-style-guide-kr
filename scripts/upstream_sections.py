@@ -164,10 +164,17 @@ def load_snapshot():
     if not MANIFEST.exists():
         return None
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    texts = {
-        row["id"]: (SECTIONS_DIR / row["file"]).read_text(encoding="utf-8").rstrip("\n")
-        for row in manifest["sections"]
-    }
+    texts = {}
+    for row in manifest["sections"]:
+        path = SECTIONS_DIR / row["file"]
+        text = path.read_text(encoding="utf-8").rstrip("\n")
+        actual = hashlib.sha256(text.encode("utf-8")).hexdigest()
+        if actual != row["sha256"]:
+            raise SystemExit(
+                f"snapshot corrupt: {path} does not match the sha256 recorded "
+                f"in {MANIFEST} for '{row['id']}'; restore it from git"
+            )
+        texts[row["id"]] = text
     return manifest, texts
 
 
