@@ -40,7 +40,7 @@ repository/
 | Classes                 | ✅   | 2026-06-10 | 2026-06-14    |
 | Functions               | ✅   | 2026-06-10 | 2026-06-14    |
 | Google-Specific Magic   | ✅   | 2026-06-10 | 2026-06-14    |
-| Other C++ Features      | ✅   | 2026-06-10 | 2026-06-14    |
+| Other C++ Features      | ✅   | 2026-06-10 | 2026-08-26    |
 | Inclusive Language      | ✅   | 2026-06-10 | 2026-06-14    |
 | Naming                  | ✅   | 2026-06-10 | 2026-06-14    |
 | Comments                | ✅   | 2026-06-10 | 2026-06-14    |
